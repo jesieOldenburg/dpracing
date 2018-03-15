@@ -1,0 +1,10 @@
+.DS_Store
+database.csv
+palette.scss
+palette.pdf 
+node_modules
+package-lock.json 
+package.json
+Gruntfile.js 
+.sass-cache
+styles.css.map 
