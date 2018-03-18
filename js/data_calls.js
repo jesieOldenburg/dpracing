@@ -4,6 +4,15 @@ console.log("data calls on station");
 var productData;
 
 
+function productCategorySorter(productData) {
+    $.each(productData, function(item, index) {
+        console.log("SORTER EACH FUNCTION", this.part_num);
+
+    });
+
+}
+
+
 function grab_data() {
 
     return $.ajax({
@@ -14,11 +23,12 @@ function grab_data() {
         .done(function(productData) {
             console.log("success");
             console.log("what is the product data", productData);
+            productCategorySorter(productData);
             return productData;
         });
 }
 
 $(grab_data().then((resolve) => {
-    let workableDataObject = JSON.parse(resolve);
-    console.log("what is parsed data", productData);
+    productCategorySorter(productData);
+
 }));
