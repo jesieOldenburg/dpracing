@@ -3,12 +3,26 @@
 console.log("data calls on station");
 var productData;
 
+function showChosenProductCategory(partNumber) {
+    if (partNumber.indexOf("299-") === true) {
+        console.log("this should show only the one item", partNumber.indexOf("299-"));
 
-function productCategorySorter(productData) {
+    }
+
+
+}
+
+
+function objectValueGrabber(productData) {
     $.each(productData, function(item, index) {
-        console.log("SORTER EACH FUNCTION", this.part_num);
+        let partNumber = this.part_num;
+        showChosenProductCategory(partNumber);
+        let productDescription = this.item_description;
+        let productPrice = this.price;
+        console.log("SORTER EACH FUNCTION Partnumber", partNumber);
 
     });
+
 
 }
 
@@ -23,12 +37,12 @@ function grab_data() {
         .done(function(productData) {
             console.log("success");
             console.log("what is the product data", productData);
-            productCategorySorter(productData);
+            objectValueGrabber(productData);
             return productData;
         });
 }
 
 $(grab_data().then((resolve) => {
-    productCategorySorter(productData);
+    objectValueGrabber(productData);
 
 }));
