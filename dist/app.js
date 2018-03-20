@@ -23,7 +23,7 @@ var productData;
 
 function showChosenProductCategory(partNumber) {
     if (partNumber.indexOf("299-") === true) {
-        // console.log("this should show only the one item", partNumber.indexOf("299-"));
+       return console.log("this should show only the one item", partNumber.indexOf("299-"));
 
     }
 }
@@ -38,8 +38,6 @@ function objectValueGrabber(productData) {
         // console.log("SORTER EACH FUNCTION Partnumber", partNumber);
 
     });
-
-
 }
 
 
@@ -59,9 +57,9 @@ function grab_data() {
 }
 
 $(grab_data().then((resolve) => {
-    objectValueGrabber(productData);
+    objectValueGrabber(productData);})
+);
 
-}));
 
 module.exports = {
   grab_data, objectValueGrabber, showChosenProductCategory
@@ -128,17 +126,23 @@ var user = require('./user');
 var fetchData = require('./data_calls');
 var fbKey = require("./fb-key.js");
 
-$("#login").click(function(event) {
-  console.log("CLICK ME");
-}, true);
 
 
+
+/** 
+ * Login Button Functionality
+ * @
+ */
+
+$("#admin-login").on("click", function(event) {
+  console.log("CLICK IT");
+});
 },{"./admin_console":1,"./data_calls":2,"./fb-key.js":4,"./user":6,"jquery":118}],6:[function(require,module,exports){
 "use strict";
 //install firebase into lib folder npm install firebase --save
-var firebase = require("./fb-config"),
-   provider = new firebase.auth.GoogleAuthProvider(),
-   currentUser = null;
+let firebase = require("./fb-config"),
+  provider = new firebase.auth.GoogleAuthProvider(),
+  currentUser = null;
 
 //listen for changed state
 firebase.auth().onAuthStateChanged((user) => {

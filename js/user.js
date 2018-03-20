@@ -1,8 +1,8 @@
 "use strict";
 //install firebase into lib folder npm install firebase --save
-var firebase = require("./fb-config"),
-   provider = new firebase.auth.GoogleAuthProvider(),
-   currentUser = null;
+let firebase = require("./fb-config"),
+  provider = new firebase.auth.GoogleAuthProvider(),
+  currentUser = null;
 
 //listen for changed state
 firebase.auth().onAuthStateChanged((user) => {

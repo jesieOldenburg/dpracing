@@ -12,7 +12,14 @@ var user = require('./user');
 var fetchData = require('./data_calls');
 var fbKey = require("./fb-key.js");
 
-$("#login").click(function(event) {
-  console.log("CLICK ME");
-}, true);
 
+
+
+/** 
+ * Login Button Functionality
+ * @
+ */
+
+$("#admin-login").on("click", function(event) {
+  console.log("CLICK IT");
+});
