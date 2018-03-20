@@ -7,18 +7,14 @@
   <link rel="stylesheet" href="../css/console.css">
 </head>
 <body>
-  <h1 id="console-h1">WELCOME, DON</h1>
+  <fieldset>
+    <form id="admin-login-form" action="console_submit" method="get" accept-charset="utf-8">
     
-  <div>
-    <input type="text" name="part_number">
-    <input type="text" name="part_description">
-    <input type="text" name="price">
-    <button type="submit">Submit New Item</button>
-  </div>
-
-
-  <div id="edit-products">
-    <input type="search">
-  </div>
+      <input type="email" value="e-mail" placeholder="e-mail">
+      <input type="password" value="password" placeholder="password">
+      <legend>Login To The DP Racing Admin Console</legend>
+      <button id="admin-login-btn" type="submit">Login</button>
+    </form>
+  </fieldset>
 </body>
 </html>

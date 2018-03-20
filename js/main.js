@@ -12,7 +12,26 @@ var user = require('./user');
 var fetchData = require('./data_calls');
 var fbKey = require("./fb-key.js");
 
-$("#login").click(function(event) {
-  console.log("CLICK ME");
-}, true);
 
+
+
+/** 
+ * Login Button Functionality
+ * 
+ */
+function redirectToConsole () {
+  window.location ="http://127.0.0.1:8080/html/console.html"; 
+}
+
+
+$("#admin-login").on("click", function(event) {
+  redirectToConsole();
+});
+
+// firebase.auth().onAuthStateChanged(function(user) {
+//   if (user) {
+//     // User is signed in.
+//   } else {
+//     // No user is signed in.
+//   }
+// });
