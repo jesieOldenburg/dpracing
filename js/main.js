@@ -1,21 +1,18 @@
 "use strict";
 console.log("Main is here");
 
-let fetchData = require('./data_calls');
+var $ = require("jquery");
 
-let listeners =require ('./listeners');
+var adminModifyDB = require("./admin_console");
 
-let config = require('./fb-config');
+var user = require('./user');
 
-let user = require('./user');
 
-let adminModifyDB = require("./admin_console");
+//FireBase dependencies...
+var fetchData = require('./data_calls');
+var fbKey = require("./fb-key.js");
 
-document.getElementById("login").addEventListener('click', function (e) {
-  // body... 
-  console.log("you clicked login button");
-});
+$("#login").click(function(event) {
+  console.log("CLICK ME");
+}, true);
 
-$("#landing-cta-btn").click(function(event) {
-  console.log("clickety click");
-});

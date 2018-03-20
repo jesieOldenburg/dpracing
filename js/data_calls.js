@@ -1,15 +1,16 @@
 "use strict";
 
+let firebase = require("./fb-config");
+
+
 console.log("data calls on station");
 var productData;
 
 function showChosenProductCategory(partNumber) {
     if (partNumber.indexOf("299-") === true) {
-        console.log("this should show only the one item", partNumber.indexOf("299-"));
+        // console.log("this should show only the one item", partNumber.indexOf("299-"));
 
     }
-
-
 }
 
 
@@ -19,7 +20,7 @@ function objectValueGrabber(productData) {
         showChosenProductCategory(partNumber);
         let productDescription = this.item_description;
         let productPrice = this.price;
-        console.log("SORTER EACH FUNCTION Partnumber", partNumber);
+        // console.log("SORTER EACH FUNCTION Partnumber", partNumber);
 
     });
 
@@ -36,7 +37,7 @@ function grab_data() {
         })
         .done(function(productData) {
             console.log("success");
-            console.log("what is the product data", productData);
+            // console.log("what is the product data", productData);
             objectValueGrabber(productData);
             return productData;
         });
@@ -46,3 +47,7 @@ $(grab_data().then((resolve) => {
     objectValueGrabber(productData);
 
 }));
+
+module.exports = {
+  grab_data, objectValueGrabber, showChosenProductCategory
+};

@@ -1,7 +1,10 @@
 "use strict";
 
 
-let firebase = require("firebase/app");
+let firebase = require("firebase/app"),
+  fb = require("./fb-key"),
+  fbData = fb();
+  
   require("firebase/auth");
   require("firebase/database");
 
@@ -12,15 +15,16 @@ var config = {
     apiKey: "AIzaSyBWHwjjBTpw2kwz5L-h9AWoRrrtF-rKM0k",
     authDomain: "dp-racing.firebaseapp.com",
     databaseURL: "https://dp-racing.firebaseio.com",
-    projectId: "dp-racing",
-    storageBucket: "dp-racing.appspot.com",
-    messagingSenderId: "61578888615"
   };
 
 firebase.initializeApp(config);
 var database = firebase.database();
 
-module.exports = firebase;
+firebase.getFBsettings = () => {
+  console.log("getFBsettings", config);
+  return config;
+};
 
+module.exports = firebase;
 
 
