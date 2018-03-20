@@ -1,18 +1,27 @@
 (function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
 "use strict";
-
+console.log("admin here");
 let newItemPN = $("#pn-input").val();
 let newItemDescription = $("desc-input").val();
 let newItemPrice = $("price-input").val();
 
-// var databaseAccess = firebase.database();
+let signInAuth = require("./user.js");
 
 let newInventoryItem = {
   part_num:"",
   item_description:"",
   price:""
 };
-},{}],2:[function(require,module,exports){
+
+
+$('#admin-login-btn').submit(function(event) {
+  signInAuth();
+});
+
+module.exports = {
+  newInventoryItem
+};
+},{"./user.js":6}],2:[function(require,module,exports){
 "use strict";
 
 let firebase = require("./fb-config");
@@ -131,12 +140,24 @@ var fbKey = require("./fb-key.js");
 
 /** 
  * Login Button Functionality
- * @
+ * 
  */
+function redirectToConsole () {
+  window.location ="http://127.0.0.1:8080/html/console.html"; 
+}
+
 
 $("#admin-login").on("click", function(event) {
-  console.log("CLICK IT");
+  redirectToConsole();
 });
+
+// firebase.auth().onAuthStateChanged(function(user) {
+//   if (user) {
+//     // User is signed in.
+//   } else {
+//     // No user is signed in.
+//   }
+// });
 },{"./admin_console":1,"./data_calls":2,"./fb-key.js":4,"./user":6,"jquery":118}],6:[function(require,module,exports){
 "use strict";
 //install firebase into lib folder npm install firebase --save
@@ -156,7 +177,15 @@ firebase.auth().onAuthStateChanged((user) => {
   }
 });
 
-function logInGoogle() {
+let signInAuth = firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // ...
+});
+
+
+function logInActions() {
   //all firebase functions return a promise!! Add a then when called
 
   return firebase.auth().signInWithPopup(provider);
@@ -173,7 +202,7 @@ function setUser(val){
   currentUser = val;
 }
 
-module.exports = {logInGoogle, logOut, getUser, setUser};
+module.exports = {logOut, getUser, setUser, signInAuth};
 
 },{"./fb-config":3}],7:[function(require,module,exports){
 "use strict";

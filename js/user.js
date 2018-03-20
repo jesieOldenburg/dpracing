@@ -16,7 +16,15 @@ firebase.auth().onAuthStateChanged((user) => {
   }
 });
 
-function logInGoogle() {
+let signInAuth = firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // ...
+});
+
+
+function logInActions() {
   //all firebase functions return a promise!! Add a then when called
 
   return firebase.auth().signInWithPopup(provider);
@@ -33,4 +41,4 @@ function setUser(val){
   currentUser = val;
 }
 
-module.exports = {logInGoogle, logOut, getUser, setUser};
+module.exports = {logOut, getUser, setUser, signInAuth};
