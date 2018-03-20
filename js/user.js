@@ -1,7 +1,6 @@
 "use strict";
 //install firebase into lib folder npm install firebase --save
 let firebase = require("./fb-config"),
-  provider = new firebase.auth.GoogleAuthProvider(),
   currentUser = null;
 
 //listen for changed state
@@ -16,23 +15,15 @@ firebase.auth().onAuthStateChanged((user) => {
   }
 });
 
-let signInAuth = firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  // ...
-});
-
+function loginWithEmail (email, password) {
+  return firebase.auth().signInWithEmailAndPassword(email, password);
+}
 
 function logInActions() {
   //all firebase functions return a promise!! Add a then when called
 
-  return firebase.auth().signInWithPopup(provider);
 }
 
-function logOut(){
-  return firebase.auth().signOut();
-}
 function getUser(){
   return currentUser;
 }
@@ -41,4 +32,7 @@ function setUser(val){
   currentUser = val;
 }
 
-module.exports = {logOut, getUser, setUser, signInAuth};
+function logOut(){
+  return firebase.auth().signOut();
+}
+module.exports = {logOut, getUser, setUser, loginWithEmail};
