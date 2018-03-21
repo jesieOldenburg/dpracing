@@ -1,32 +1,42 @@
 "use strict";
 
 let firebase = require("./fb-config");
-
+var taco;
 
 console.log("data calls on station");
 var productData;
 
-function showChosenProductCategory(partNumber) {
-    if (partNumber.indexOf("299-") === true) {
-       return console.log("this should show only the one item", partNumber.indexOf("299-"));
+var partnumArray = [];
 
-    }
-}
+$("#suspension-button, #brake-button, #drivetrain-button").click(function(event) {
+  event.preventDefault();
+
+ let val = event.currentTarget.value;
+
+  grab_data(val);
+});
 
 
-function objectValueGrabber(productData) {
-    $.each(productData, function(item, index) {
+function objectValueGrabber(productData, val) {
+    console.log("my data!!!", productData);
+    
+    $.each(productData, function(index, item) {
+        
         let partNumber = this.part_num;
-        showChosenProductCategory(partNumber);
-        let productDescription = this.item_description;
-        let productPrice = this.price;
-        // console.log("SORTER EACH FUNCTION Partnumber", partNumber);
+        let suspensionPN = val;
+        let parsePN = partNumber.substring(0, 4);
+
+        if (parsePN === suspensionPN) {
+          partnumArray.push(item);  
+
+        }
 
     });
+    console.log("what is the partnumArray brosef", partnumArray);
 }
 
 
-function grab_data() {
+function grab_data(val) {
 
     return $.ajax({
             url: 'https://dp-racing.firebaseio.com/products.json',
@@ -35,17 +45,15 @@ function grab_data() {
         })
         .done(function(productData) {
             console.log("success");
-            // console.log("what is the product data", productData);
-            objectValueGrabber(productData);
+            console.log("what is the product data", productData);
+            objectValueGrabber(productData, val);
             return productData;
         });
 }
 
-$(grab_data().then((resolve) => {
-    objectValueGrabber(productData);})
-);
+// $(grab_data());
 
 
 module.exports = {
-  grab_data, objectValueGrabber, showChosenProductCategory
+  grab_data, objectValueGrabber
 };

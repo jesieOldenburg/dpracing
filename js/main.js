@@ -24,6 +24,11 @@ $("#admin-login-btn").on("click", function(e) {
 
   user.loginWithEmail(userEmail, userPassword);
 
-  window.location.href = "../index.html";
+  // window.location.href = "../index.html";
+});
+
+$("#log-out-btn").click(function(e) {
+
+  user.logOut();
 });
   
