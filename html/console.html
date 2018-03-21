@@ -4,17 +4,64 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Admin Console</title>
-  <link rel="stylesheet" href="../css/console.css">
+  <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-  <fieldset>
-    <form id="admin-login-form" action="console_submit" method="get" accept-charset="utf-8">
+  
+  <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
+
+        <div class="container">
+
+            <a class="navbar-brand" href="index.html">DP Racing</a>
+
+            <div class="collapse navbar-collapse" id="navcol-1">
+
+                <ul class="nav navbar-nav">
+
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="../html/products.html" id="nav-products">Products</a>
+                    </li>
+
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="../html/news.html">News</a>
+                    </li>
+
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="../html/gallery.html">Gallery</a>
+                    </li>
+
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="../html/technical.html">Technical Manuals</a>
+                    </li>
+
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="../html/contact.html" id="nav-contact-link">Contact</a>
+                    </li>
+                </ul>
+
+                
+                    <a href="html/console.html" id="admin-login">Admin Log In</a>
+                
+
+            </div>
+        </div>
+    </nav>
+
+  <div id="dynamic-div">
     
-      <input type="email" value="e-mail" placeholder="e-mail">
-      <input type="password" value="password" placeholder="password">
-      <legend>Login To The DP Racing Admin Console</legend>
-      <button id="admin-login-btn" type="submit">Login</button>
-    </form>
-  </fieldset>
+    <input id="login-email" type="text" placeholder="e-mail">
+    <input id="login-pass" type="password" placeholder="password">
+    <legend>Login To The DP Racing Admin Console</legend>
+
+    <button id="admin-login-btn">Login</button>
+ 
+  </div>
+
+
+  <script
+    src="http://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>      
+  <script type="text/javascript" src="../dist/app.js"></script>
 </body>
 </html>
