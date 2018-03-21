@@ -49,6 +49,7 @@ function partNumberFilter(productData, val) {
                 </div>
               </div> `;
 
+
             $("#card-group").append(productDomString);
 
           });
