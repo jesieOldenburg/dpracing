@@ -15,6 +15,22 @@ let newInventoryItem = {
   price:""
 };
 
+function newItemValues (Object) {
+  newInventoryItem.part_num = $("#new-part-num-field").val();
+  newInventoryItem.item_description = $("#new-item-description-field").val();
+  newInventoryItem.price = $("#new-item-price-field").val();
+}
+
+function addProduct (newInventoryItem) {
+    return $.ajax({
+      url: "",
+      type: 'POST',
+      data: JSON.stringify(newInventoryItem),
+      dataType: 'json'
+   }).done((item) => {
+     // body... 
+   });
+} 
 
 module.exports = {
   newInventoryItem
