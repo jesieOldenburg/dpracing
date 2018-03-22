@@ -10,13 +10,11 @@ var partnumArray = [];
 
 $("#suspension-button, #brake-button, #drivetrain-button").click(function(event) {
   event.preventDefault();
-
+//consider putting the DOM removal {}here
  let val = event.currentTarget.value;
 
   grab_data(val);
 });
-
-
 
 
 /** 

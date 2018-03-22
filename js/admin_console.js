@@ -2,19 +2,30 @@
 console.log("admin here");
 
 let firebase = require("./fb-config");
-let newItemPN = $("#pn-input").val();
-let newItemDescription = $("desc-input").val();
-let newItemPrice = $("price-input").val();
-
 let signInAuth = require("./user.js");
 
-let newInventoryItem = {
-  part_num:"",
-  item_description:"",
-  price:""
-};
+let fbRemoteDB = firebase.database().ref("products/");
 
 
-module.exports = {
-  newInventoryItem
-};
+function pushNewItemToFB (newItemObject) {
+  console.log("pushNewItemToFB", newItemObject);
+  
+  return $.ajax({
+  url: `${firebase.getFBsettings().databaseURL}/products.json`,
+  type: 'POST',
+  data: JSON.stringify(newItemObject),
+  dataType: 'json'
+  }).done((item) => {
+  console.log("CHECK YO FIREBASE FOR NEW ITEM");
+ });
+}
+
+function editFBitems () {
+  // body...
+}
+
+function deleteFBitems () {
+  // body... 
+}
+
+module.exports = { pushNewItemToFB, editFBitems, deleteFBitems };
