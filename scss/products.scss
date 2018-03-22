@@ -1,0 +1,12 @@
+@import "main";
+@import "palette";
+
+.card-body{
+  display: flex;
+  flex-flow: row wrap;
+  width: 200px;
+}
+
+.card-text {
+  color: red;
+}

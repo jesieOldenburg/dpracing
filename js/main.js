@@ -3,11 +3,27 @@ console.log("Main is here");
 
 
 let adminModifyDB = require("./admin_console"),
-user = require('./user');
-
+user = require("./user"),
+db = require("./data_calls"),
+dataHighway = require("./data_calls");
 //FireBase dependencies...
-var fetchData = require('./data_calls');
+
 var fbKey = require("./fb-key.js");
+
+/** This is the constructor function for the new inventory objects being pushed to firebase */
+
+
+function createInventoryItem () {
+  
+  let newInventoryItem = {
+    part_num: $("#admin-partnumber-input").val(),
+    item_description: $("#admin-description-input").val(),
+    price:$("#admin-price-input").val()
+  };
+  return newInventoryItem;
+}
+
+
 
 
 /** 
@@ -31,4 +47,18 @@ $("#log-out-btn").click(function(e) {
 
   user.logOut();
 });
+
+
+/** 
+ * Event Listener that handles the button to create a new item in the user's database
+ * @param  {[type]} event) {             event.preventDefault();  let newItemObject [description]
+ * @return {[type]}        [description]
+ */
+
+
+$("#admin-create-btn").click(function(event) {
+  event.preventDefault();
   
+  let newItemObject = createInventoryItem();
+  adminModifyDB.pushNewItemToFB(newItemObject);
+});

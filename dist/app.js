@@ -3,38 +3,33 @@
 console.log("admin here");
 
 let firebase = require("./fb-config");
-let newItemPN = $("#pn-input").val();
-let newItemDescription = $("desc-input").val();
-let newItemPrice = $("price-input").val();
-
 let signInAuth = require("./user.js");
 
-let newInventoryItem = {
-  part_num:"",
-  item_description:"",
-  price:""
-};
+let fbRemoteDB = firebase.database().ref("products/");
 
-function newItemValues (Object) {
-  newInventoryItem.part_num = $("#new-part-num-field").val();
-  newInventoryItem.item_description = $("#new-item-description-field").val();
-  newInventoryItem.price = $("#new-item-price-field").val();
+
+function pushNewItemToFB (newItemObject) {
+  console.log("pushNewItemToFB", newItemObject);
+  
+  return $.ajax({
+  url: `${firebase.getFBsettings().databaseURL}/products.json`,
+  type: 'POST',
+  data: JSON.stringify(newItemObject),
+  dataType: 'json'
+  }).done((item) => {
+  console.log("CHECK YO FIREBASE FOR NEW ITEM");
+ });
 }
 
-function addProduct (newInventoryItem) {
-    return $.ajax({
-      url: "",
-      type: 'POST',
-      data: JSON.stringify(newInventoryItem),
-      dataType: 'json'
-   }).done((item) => {
-     // body... 
-   });
-} 
+function editFBitems () {
+  // body...
+}
 
-module.exports = {
-  newInventoryItem
-};
+function deleteFBitems () {
+  // body... 
+}
+
+module.exports = { pushNewItemToFB, editFBitems, deleteFBitems };
 },{"./fb-config":3,"./user.js":6}],2:[function(require,module,exports){
 "use strict";
 
@@ -48,13 +43,11 @@ var partnumArray = [];
 
 $("#suspension-button, #brake-button, #drivetrain-button").click(function(event) {
   event.preventDefault();
-
+//consider putting the DOM removal {}here
  let val = event.currentTarget.value;
 
   grab_data(val);
 });
-
-
 
 
 /** 
@@ -173,11 +166,27 @@ console.log("Main is here");
 
 
 let adminModifyDB = require("./admin_console"),
-user = require('./user');
-
+user = require("./user"),
+db = require("./data_calls"),
+dataHighway = require("./data_calls");
 //FireBase dependencies...
-var fetchData = require('./data_calls');
+
 var fbKey = require("./fb-key.js");
+
+/** This is the constructor function for the new inventory objects being pushed to firebase */
+
+
+function createInventoryItem () {
+  
+  let newInventoryItem = {
+    part_num: $("#admin-partnumber-input").val(),
+    item_description: $("#admin-description-input").val(),
+    price:$("#admin-price-input").val()
+  };
+  return newInventoryItem;
+}
+
+
 
 
 /** 
@@ -201,7 +210,21 @@ $("#log-out-btn").click(function(e) {
 
   user.logOut();
 });
+
+
+/** 
+ * Event Listener that handles the button to create a new item in the user's database
+ * @param  {[type]} event) {             event.preventDefault();  let newItemObject [description]
+ * @return {[type]}        [description]
+ */
+
+
+$("#admin-create-btn").click(function(event) {
+  event.preventDefault();
   
+  let newItemObject = createInventoryItem();
+  adminModifyDB.pushNewItemToFB(newItemObject);
+});
 
 },{"./admin_console":1,"./data_calls":2,"./fb-key.js":4,"./user":6}],6:[function(require,module,exports){
 "use strict";

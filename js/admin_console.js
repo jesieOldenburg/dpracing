@@ -2,35 +2,30 @@
 console.log("admin here");
 
 let firebase = require("./fb-config");
-let newItemPN = $("#pn-input").val();
-let newItemDescription = $("desc-input").val();
-let newItemPrice = $("price-input").val();
-
 let signInAuth = require("./user.js");
 
-let newInventoryItem = {
-  part_num:"",
-  item_description:"",
-  price:""
-};
+let fbRemoteDB = firebase.database().ref("products/");
 
-function newItemValues (Object) {
-  newInventoryItem.part_num = $("#new-part-num-field").val();
-  newInventoryItem.item_description = $("#new-item-description-field").val();
-  newInventoryItem.price = $("#new-item-price-field").val();
+
+function pushNewItemToFB (newItemObject) {
+  console.log("pushNewItemToFB", newItemObject);
+  
+  return $.ajax({
+  url: `${firebase.getFBsettings().databaseURL}/products.json`,
+  type: 'POST',
+  data: JSON.stringify(newItemObject),
+  dataType: 'json'
+  }).done((item) => {
+  console.log("CHECK YO FIREBASE FOR NEW ITEM");
+ });
 }
 
-function addProduct (newInventoryItem) {
-    return $.ajax({
-      url: "",
-      type: 'POST',
-      data: JSON.stringify(newInventoryItem),
-      dataType: 'json'
-   }).done((item) => {
-     // body... 
-   });
-} 
+function editFBitems () {
+  // body...
+}
 
-module.exports = {
-  newInventoryItem
-};
+function deleteFBitems () {
+  // body... 
+}
+
+module.exports = { pushNewItemToFB, editFBitems, deleteFBitems };
