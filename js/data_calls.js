@@ -1,17 +1,18 @@
 "use strict";
 
 let firebase = require("./fb-config");
-var taco;
 
 console.log("data calls on station");
 var productData;
 
 var partnumArray = [];
+var adminSearchArray = [];
+
 
 $("#suspension-button, #brake-button, #drivetrain-button").click(function(event) {
   event.preventDefault();
-//consider putting the DOM removal {}here
  let val = event.currentTarget.value;
+//consider putting the DOM removal {}here
 
   grab_data(val);
 });
@@ -59,6 +60,49 @@ function partNumberFilter(productData, val) {
 }
 
 
+
+function searchLogic(val) {
+    
+  return $.ajax({
+          url: `https://dp-racing.firebaseio.com/products.json`,
+          type: 'GET',
+          dataType: 'JSON',
+  })
+      .done(function(data) {
+        console.log("Successful XHR Call");
+
+
+        $.each(data, function(index, item) {
+          let adminfbQuery = $("#admin-search-field").val(),
+              partKey = this.part_num,
+              adminTarget = val,
+              fullNum = partKey.substring(0, 8),
+              firstThree = partKey.substring(0, 4);
+
+
+          if (fullNum === adminTarget  || firstThree === adminTarget) {
+              adminSearchArray.push(item);
+                      
+          $.each(adminSearchArray, function(index, item) {
+
+            let adminDOMCards = `
+            <div id=returned-query-container>
+              <h4>${item.part_num}</h4>
+              <p>Description: ${item.item_description}</p>
+              <p>Price: ${item.price}</p>
+            </div>`;
+              
+            $("#dynamic-div").append(adminDOMCards);
+
+          });
+          }                  
+        });
+        return data;
+    }); 
+}
+
+
+
 function grab_data(val) {
 
     return $.ajax({
@@ -68,8 +112,9 @@ function grab_data(val) {
         })
         .done(function(productData) {
             console.log("success");
-            console.log("what is the product data", productData);
-            partNumberFilter(productData, val);
+
+            // partNumberFilter(productData, val);
+            partNumberFilter(productData);
             return productData;
         });
 }
@@ -78,5 +123,5 @@ function grab_data(val) {
 
 
 module.exports = {
-  grab_data, partNumberFilter
+  grab_data, partNumberFilter, productData, searchLogic
 };

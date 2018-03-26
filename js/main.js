@@ -3,12 +3,13 @@ console.log("Main is here");
 
 
 let adminModifyDB = require("./admin_console"),
+firebase = require("./fb-config"),
 user = require("./user"),
 db = require("./data_calls"),
-dataHighway = require("./data_calls");
-//FireBase dependencies...
+fbKey = require("./fb-key.js"),
+searchLogic = require("./data_calls");
 
-var fbKey = require("./fb-key.js");
+//FireBase dependencies...
 
 /** This is the constructor function for the new inventory objects being pushed to firebase */
 
@@ -22,9 +23,6 @@ function createInventoryItem () {
   };
   return newInventoryItem;
 }
-
-
-
 
 /** 
  * Login Button Functionality
@@ -40,7 +38,7 @@ $("#admin-login-btn").on("click", function(e) {
 
   user.loginWithEmail(userEmail, userPassword);
 
-  // window.location.href = "../index.html";
+
 });
 
 $("#log-out-btn").click(function(e) {
@@ -61,4 +59,29 @@ $("#admin-create-btn").click(function(event) {
   
   let newItemObject = createInventoryItem();
   adminModifyDB.pushNewItemToFB(newItemObject);
+
 });
+
+
+// Set the value of the button the the search query on FOCUS OUT!!!....
+$("#admin-search-field").focusout(function(event) {
+  event.preventDefault();
+
+  let adminSearchValue = $("#admin-search-field").val();
+  
+  $("#admin-search-btn").attr('value', adminSearchValue);
+  console.log("button value is?", $("#admin-search-btn").attr("value"));
+  return adminSearchValue;
+});
+
+//Admin search button El...
+$("#admin-search-btn").click(function(event) {
+  event.preventDefault();
+
+  let val = event.currentTarget.value;
+  
+  db.searchLogic(val);
+
+});
+
+

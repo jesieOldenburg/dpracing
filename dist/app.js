@@ -5,7 +5,7 @@ console.log("admin here");
 let firebase = require("./fb-config");
 let signInAuth = require("./user.js");
 
-let fbRemoteDB = firebase.database().ref("products/");
+
 
 
 function pushNewItemToFB (newItemObject) {
@@ -22,11 +22,28 @@ function pushNewItemToFB (newItemObject) {
 }
 
 function editFBitems () {
-  // body...
+  
 }
 
+
+
 function deleteFBitems () {
-  // body... 
+  
+  return $.ajax({
+    url: `${firebase.getFBsettings().databaseURL}/products.json`,
+    type: 'DELETE',
+    dataType: 'json',
+  })
+  .done(function() {
+    console.log("success");
+  })
+  .fail(function() {
+    console.log("error");
+  })
+  .always(function() {
+    console.log("complete");
+  });
+  
 }
 
 module.exports = { pushNewItemToFB, editFBitems, deleteFBitems };
@@ -34,17 +51,18 @@ module.exports = { pushNewItemToFB, editFBitems, deleteFBitems };
 "use strict";
 
 let firebase = require("./fb-config");
-var taco;
 
 console.log("data calls on station");
 var productData;
 
 var partnumArray = [];
+var adminSearchArray = [];
+
 
 $("#suspension-button, #brake-button, #drivetrain-button").click(function(event) {
   event.preventDefault();
-//consider putting the DOM removal {}here
  let val = event.currentTarget.value;
+//consider putting the DOM removal {}here
 
   grab_data(val);
 });
@@ -92,6 +110,49 @@ function partNumberFilter(productData, val) {
 }
 
 
+
+function searchLogic(val) {
+    
+  return $.ajax({
+          url: `https://dp-racing.firebaseio.com/products.json`,
+          type: 'GET',
+          dataType: 'JSON',
+  })
+      .done(function(data) {
+        console.log("Successful XHR Call");
+
+
+        $.each(data, function(index, item) {
+          let adminfbQuery = $("#admin-search-field").val(),
+              partKey = this.part_num,
+              adminTarget = val,
+              fullNum = partKey.substring(0, 8),
+              firstThree = partKey.substring(0, 4);
+
+
+          if (fullNum === adminTarget  || firstThree === adminTarget) {
+              adminSearchArray.push(item);
+                      
+          $.each(adminSearchArray, function(index, item) {
+
+            let adminDOMCards = `
+            <div id=returned-query-container>
+              <h4>${item.part_num}</h4>
+              <p>Description: ${item.item_description}</p>
+              <p>Price: ${item.price}</p>
+            </div>`;
+              
+            $("#dynamic-div").append(adminDOMCards);
+
+          });
+          }                  
+        });
+        return data;
+    }); 
+}
+
+
+
 function grab_data(val) {
 
     return $.ajax({
@@ -101,8 +162,9 @@ function grab_data(val) {
         })
         .done(function(productData) {
             console.log("success");
-            console.log("what is the product data", productData);
-            partNumberFilter(productData, val);
+
+            // partNumberFilter(productData, val);
+            partNumberFilter(productData);
             return productData;
         });
 }
@@ -111,7 +173,7 @@ function grab_data(val) {
 
 
 module.exports = {
-  grab_data, partNumberFilter
+  grab_data, partNumberFilter, productData, searchLogic
 };
 },{"./fb-config":3}],3:[function(require,module,exports){
 "use strict";
@@ -166,12 +228,13 @@ console.log("Main is here");
 
 
 let adminModifyDB = require("./admin_console"),
+firebase = require("./fb-config"),
 user = require("./user"),
 db = require("./data_calls"),
-dataHighway = require("./data_calls");
-//FireBase dependencies...
+fbKey = require("./fb-key.js"),
+searchLogic = require("./data_calls");
 
-var fbKey = require("./fb-key.js");
+//FireBase dependencies...
 
 /** This is the constructor function for the new inventory objects being pushed to firebase */
 
@@ -185,9 +248,6 @@ function createInventoryItem () {
   };
   return newInventoryItem;
 }
-
-
-
 
 /** 
  * Login Button Functionality
@@ -203,7 +263,7 @@ $("#admin-login-btn").on("click", function(e) {
 
   user.loginWithEmail(userEmail, userPassword);
 
-  // window.location.href = "../index.html";
+
 });
 
 $("#log-out-btn").click(function(e) {
@@ -224,9 +284,34 @@ $("#admin-create-btn").click(function(event) {
   
   let newItemObject = createInventoryItem();
   adminModifyDB.pushNewItemToFB(newItemObject);
+
 });
 
-},{"./admin_console":1,"./data_calls":2,"./fb-key.js":4,"./user":6}],6:[function(require,module,exports){
+
+// Set the value of the button the the search query on FOCUS OUT!!!....
+$("#admin-search-field").focusout(function(event) {
+  event.preventDefault();
+
+  let adminSearchValue = $("#admin-search-field").val();
+  
+  $("#admin-search-btn").attr('value', adminSearchValue);
+  console.log("button value is?", $("#admin-search-btn").attr("value"));
+  return adminSearchValue;
+});
+
+//Admin search button El...
+$("#admin-search-btn").click(function(event) {
+  event.preventDefault();
+
+  let val = event.currentTarget.value;
+  
+  db.searchLogic(val);
+
+});
+
+
+
+},{"./admin_console":1,"./data_calls":2,"./fb-config":3,"./fb-key.js":4,"./user":6}],6:[function(require,module,exports){
 "use strict";
 //install firebase into lib folder npm install firebase --save
 let firebase = require("./fb-config"),
