@@ -72,18 +72,18 @@ function searchLogic(val) {
           dataType: 'JSON',
           data: 'json'
 
-  }).then( (data) => {
+  }).done( (data) => {
     var IdArray = Object.keys(data);
           console.log("Successful XHR Call");
 
           $.each(IdArray, function(key) {
             data.id = key; 
           }); 
-        }).then( (data) => {
+
           $.each(data, function(index, item) {
 
-          let partKey = this.part_num,
-              itemId = this.id,
+          let partKey = item.part_num,
+              itemId = item.id,
               adminTarget = val,
               fullNum = partKey.substring(0, 8),
               firstThree = partKey.substring(0, 4);
@@ -92,7 +92,7 @@ function searchLogic(val) {
 
       if (fullNum === adminTarget  || firstThree === adminTarget) {
           adminSearchArray.push(item);
-          }
+      
       $.each(adminSearchArray, function(index, item) {
 
         let adminDOMCards = `
@@ -104,14 +104,15 @@ function searchLogic(val) {
           <button class="delete-btn">Delete</button>
         </div>`;
      
-          
         $("#admin-output-container").append(adminDOMCards);
+          });
 
+          }//If closing bracket...
 
 });
 });
-});
-  }
+}
+  
 
 function grab_data(val) {
 
