@@ -4,8 +4,7 @@ console.log("admin here");
 let firebase = require("./fb-config");
 let signInAuth = require("./user.js");
 
-
-
+var arrayOfKeys = [];
 
 function pushNewItemToFB (newItemObject) {
   console.log("pushNewItemToFB", newItemObject);
@@ -15,15 +14,40 @@ function pushNewItemToFB (newItemObject) {
   type: 'POST',
   data: JSON.stringify(newItemObject),
   dataType: 'json'
-  }).done((item) => {
-  console.log("CHECK YO FIREBASE FOR NEW ITEM");
- });
+  })
+    .done((partID) => {
+      console.log("CHECK YO FIREBASE FOR NEW ITEM", partID);
+      arrayOfKeys.push(partID);
+    });
 }
 
-function editFBitems () {
-  
+console.log("ARRAY OF KEYS", arrayOfKeys);
+
+
+
+//This function needs to receive the ID of the object being modified in Firebase.
+function pushEditsToFB (updatedCard, fb_id) {
+
+  return $.ajax({
+    url: `${firebase.getFBsettings().databaseURL}/products/${fb_id}.json`,
+    type: 'PUT',
+    data: JSON.stringify(updatedCard),
+    dataType: 'json',
+  })
+  .done(function() {
+    console.log("success");
+  });
 }
 
+
+
+//This function needs to post the changes after the click.... Add Event listeners to capture the values from the fields, then send them to firebase, then update the dom....
+// function TEST_FUNCTION () {
+ 
+//   newPn    = editTarget.children('h4').text(editFieldOneVal),
+//   newDesc  = editTarget.children('.card-text').text(editFieldTwoVal),
+//   newPrice = editTarget.children('.card-price').text(editFieldThrVal);
+// }
 
 
 function deleteFBitems () {
@@ -45,4 +69,4 @@ function deleteFBitems () {
   
 }
 
-module.exports = { pushNewItemToFB, editFBitems, deleteFBitems };
+module.exports = { pushNewItemToFB,  deleteFBitems, pushEditsToFB };

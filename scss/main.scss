@@ -276,17 +276,21 @@
   margin-top:16px;
 }
 
-.list-inline {
-  font-size:20px;
-  /*color:#f77f00;*/
-  font-family:'Doppio One', sans-serif;
-}
-
-.list-inline-item {
-  /*color:#f77f00;*/
-}
-
 .footer_links {
   color:#f77f00;
+}
+
+// ADMIN PAGE STYLES>>>>>>>>>>>>>>>>>>>
+
+.product-card {
+  width: 400px;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: space-between;
+}
+
+.card-title {
+  text-align: center;
+  color: orange;
 }
 

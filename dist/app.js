@@ -5,8 +5,7 @@ console.log("admin here");
 let firebase = require("./fb-config");
 let signInAuth = require("./user.js");
 
-
-
+var arrayOfKeys = [];
 
 function pushNewItemToFB (newItemObject) {
   console.log("pushNewItemToFB", newItemObject);
@@ -16,15 +15,40 @@ function pushNewItemToFB (newItemObject) {
   type: 'POST',
   data: JSON.stringify(newItemObject),
   dataType: 'json'
-  }).done((item) => {
-  console.log("CHECK YO FIREBASE FOR NEW ITEM");
- });
+  })
+    .done((partID) => {
+      console.log("CHECK YO FIREBASE FOR NEW ITEM", partID);
+      arrayOfKeys.push(partID);
+    });
 }
 
-function editFBitems () {
-  
+console.log("ARRAY OF KEYS", arrayOfKeys);
+
+
+
+//This function needs to receive the ID of the object being modified in Firebase.
+function pushEditsToFB (updatedCard, fb_id) {
+
+  return $.ajax({
+    url: `${firebase.getFBsettings().databaseURL}/products/${fb_id}.json`,
+    type: 'PUT',
+    data: JSON.stringify(updatedCard),
+    dataType: 'json',
+  })
+  .done(function() {
+    console.log("success");
+  });
 }
 
+
+
+//This function needs to post the changes after the click.... Add Event listeners to capture the values from the fields, then send them to firebase, then update the dom....
+// function TEST_FUNCTION () {
+ 
+//   newPn    = editTarget.children('h4').text(editFieldOneVal),
+//   newDesc  = editTarget.children('.card-text').text(editFieldTwoVal),
+//   newPrice = editTarget.children('.card-price').text(editFieldThrVal);
+// }
 
 
 function deleteFBitems () {
@@ -46,7 +70,7 @@ function deleteFBitems () {
   
 }
 
-module.exports = { pushNewItemToFB, editFBitems, deleteFBitems };
+module.exports = { pushNewItemToFB,  deleteFBitems, pushEditsToFB };
 },{"./fb-config":3,"./user.js":6}],2:[function(require,module,exports){
 "use strict";
 
@@ -66,7 +90,6 @@ $("#suspension-button, #brake-button, #drivetrain-button").click(function(event)
 
   grab_data(val);
 });
-
 
 /** 
  * Sorts the products by part number, to populate the DOM with product cards of a category
@@ -89,13 +112,13 @@ function partNumberFilter(productData, val) {
            
             let productDomString = 
             `<div class="product-card">
-              <div class="card-body">
                 <h4 class="card-title">${item.part_num}</h4>
                   <p class="card-text">
                     ${item.item_description} <br>
+                  </p> 
+                  <p class="card-price"> 
                     Price: ${item.price}
                   </p>
-                </div>
               </div> `;
 
 
@@ -110,48 +133,59 @@ function partNumberFilter(productData, val) {
 }
 
 
-
+/**
+ * [searchLogic description]
+ * @param  {[type]} val [description]
+ * @return {[type]}     [description]
+ */
 function searchLogic(val) {
     
   return $.ajax({
           url: `https://dp-racing.firebaseio.com/products.json`,
           type: 'GET',
           dataType: 'JSON',
-  })
-      .done(function(data) {
-        console.log("Successful XHR Call");
+          data: 'json'
 
+  }).then( (data) => {
+    var IdArray = Object.keys(data);
+          console.log("Successful XHR Call");
 
-        $.each(data, function(index, item) {
-          let adminfbQuery = $("#admin-search-field").val(),
-              partKey = this.part_num,
+          $.each(IdArray, function(key) {
+            data.id = key; 
+          }); 
+        }).then( (data) => {
+          $.each(data, function(index, item) {
+
+          let partKey = this.part_num,
+              itemId = this.id,
               adminTarget = val,
               fullNum = partKey.substring(0, 8),
               firstThree = partKey.substring(0, 4);
 
+        // console.log("What is itemID?", itemId);
 
-          if (fullNum === adminTarget  || firstThree === adminTarget) {
-              adminSearchArray.push(item);
-                      
-          $.each(adminSearchArray, function(index, item) {
+      if (fullNum === adminTarget  || firstThree === adminTarget) {
+          adminSearchArray.push(item);
+          }
+      $.each(adminSearchArray, function(index, item) {
 
-            let adminDOMCards = `
-            <div id=returned-query-container>
-              <h4>${item.part_num}</h4>
-              <p>Description: ${item.item_description}</p>
-              <p>Price: ${item.price}</p>
-            </div>`;
-              
-            $("#dynamic-div").append(adminDOMCards);
-
-          });
-          }                  
-        });
-        return data;
-    }); 
-}
+        let adminDOMCards = `
+        <div id="${itemId}" class="product-card">
+          <h4 class="card-title">${item.part_num}</h4>
+          <p class="card-text">Description: ${item.item_description}</p>
+          <p>Price: ${item.price}</p>
+          <button class="edit-btn" >Edit</button>
+          <button class="delete-btn">Delete</button>
+        </div>`;
+     
+          
+        $("#admin-output-container").append(adminDOMCards);
 
 
+});
+});
+});
+  }
 
 function grab_data(val) {
 
@@ -227,7 +261,7 @@ module.exports = getKey;
 console.log("Main is here");
 
 
-let adminModifyDB = require("./admin_console"),
+let adminPage = require("./admin_console"),
 firebase = require("./fb-config"),
 user = require("./user"),
 db = require("./data_calls"),
@@ -237,7 +271,6 @@ searchLogic = require("./data_calls");
 //FireBase dependencies...
 
 /** This is the constructor function for the new inventory objects being pushed to firebase */
-
 
 function createInventoryItem () {
   
@@ -283,10 +316,9 @@ $("#admin-create-btn").click(function(event) {
   event.preventDefault();
   
   let newItemObject = createInventoryItem();
-  adminModifyDB.pushNewItemToFB(newItemObject);
+  adminPage.pushNewItemToFB(newItemObject);
 
 });
-
 
 // Set the value of the button the the search query on FOCUS OUT!!!....
 $("#admin-search-field").focusout(function(event) {
@@ -299,6 +331,7 @@ $("#admin-search-field").focusout(function(event) {
   return adminSearchValue;
 });
 
+
 //Admin search button El...
 $("#admin-search-btn").click(function(event) {
   event.preventDefault();
@@ -309,7 +342,72 @@ $("#admin-search-btn").click(function(event) {
 
 });
 
+function editorInterface (editTarget) {
+  let interfaceHtml = ` 
+    <div class="edit-interface-container">
+        <input class="pn-edit-field" type="text" placeholder="Part Number">
+        <input class="descr-edit-field" type="text" placeholder="Item Description">
+        <input class="price-edit-field"type="text" placeholder="Price">
+        <button class="save-edits-btn">Save Changes</button>
+        <button class="cancel-edits-btn">Discard Changes</button>
+    </div>
+  `;
 
+  editTarget.append(interfaceHtml);
+}
+
+
+
+
+$(document).on("click", ".edit-btn", function(event) {
+  event.preventDefault();
+  let editTarget = $(this).parent("div"),
+      fb_id = $(this).data("edit-id");
+
+  editTarget.attr("id", "edit-card-target");
+  editorInterface(editTarget);
+  return fb_id;
+});
+
+// Begin Edit Functionality >>>>>>>>>>>>>>>>>>>>>>
+
+function editFBitems (editTarget, fb_id) {
+
+  let editFieldOneVal = $(".pn-edit-field").val(),
+      editFieldTwoVal = $(".descr-edit-field").val(),
+      editFieldThrVal = $(".price-edit-field").val(),
+      updatedCard = createInventoryItem();
+       
+       updatedCard.part_num = editFieldTwoVal;
+       updatedCard.item_description = editFieldOneVal;
+       updatedCard.price = editFieldThrVal;
+
+  console.log("OBJ?>>>>>>>>>>>>>>>>>>>>>>>", updatedCard);       
+  // console.log("What is the editfieldvalue", editFieldOneVal);
+  // console.log("What is the editfieldvalue", editFieldTwoVal);
+  // console.log("What is the editfieldvalue", editFieldThrVal);
+
+adminPage.pushEditsToFB(updatedCard, fb_id);
+
+}
+
+
+
+$(document).on('click', '.save-edits-btn', function(event) {
+  event.preventDefault();
+  console.log("save me");
+
+  editFBitems();
+
+});
+
+
+//>>>>>>>>>>>>>>>>>>>>>>>>End Edit Functionality
+
+$(document).on("click", ".delete-btn", function(event) {
+  event.preventDefault();
+  console.log("delete clicked");
+});
 
 },{"./admin_console":1,"./data_calls":2,"./fb-config":3,"./fb-key.js":4,"./user":6}],6:[function(require,module,exports){
 "use strict";

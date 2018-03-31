@@ -17,7 +17,6 @@ $("#suspension-button, #brake-button, #drivetrain-button").click(function(event)
   grab_data(val);
 });
 
-
 /** 
  * Sorts the products by part number, to populate the DOM with product cards of a category
  * @param {array} productData - An array of objects; Pulled from XHR call to FireBase
@@ -39,13 +38,13 @@ function partNumberFilter(productData, val) {
            
             let productDomString = 
             `<div class="product-card">
-              <div class="card-body">
                 <h4 class="card-title">${item.part_num}</h4>
                   <p class="card-text">
                     ${item.item_description} <br>
+                  </p> 
+                  <p class="card-price"> 
                     Price: ${item.price}
                   </p>
-                </div>
               </div> `;
 
 
@@ -60,48 +59,59 @@ function partNumberFilter(productData, val) {
 }
 
 
-
+/**
+ * [searchLogic description]
+ * @param  {[type]} val [description]
+ * @return {[type]}     [description]
+ */
 function searchLogic(val) {
     
   return $.ajax({
           url: `https://dp-racing.firebaseio.com/products.json`,
           type: 'GET',
           dataType: 'JSON',
-  })
-      .done(function(data) {
-        console.log("Successful XHR Call");
+          data: 'json'
 
+  }).then( (data) => {
+    var IdArray = Object.keys(data);
+          console.log("Successful XHR Call");
 
-        $.each(data, function(index, item) {
-          let adminfbQuery = $("#admin-search-field").val(),
-              partKey = this.part_num,
+          $.each(IdArray, function(key) {
+            data.id = key; 
+          }); 
+        }).then( (data) => {
+          $.each(data, function(index, item) {
+
+          let partKey = this.part_num,
+              itemId = this.id,
               adminTarget = val,
               fullNum = partKey.substring(0, 8),
               firstThree = partKey.substring(0, 4);
 
+        // console.log("What is itemID?", itemId);
 
-          if (fullNum === adminTarget  || firstThree === adminTarget) {
-              adminSearchArray.push(item);
-                      
-          $.each(adminSearchArray, function(index, item) {
+      if (fullNum === adminTarget  || firstThree === adminTarget) {
+          adminSearchArray.push(item);
+          }
+      $.each(adminSearchArray, function(index, item) {
 
-            let adminDOMCards = `
-            <div id=returned-query-container>
-              <h4>${item.part_num}</h4>
-              <p>Description: ${item.item_description}</p>
-              <p>Price: ${item.price}</p>
-            </div>`;
-              
-            $("#dynamic-div").append(adminDOMCards);
-
-          });
-          }                  
-        });
-        return data;
-    }); 
-}
+        let adminDOMCards = `
+        <div id="${itemId}" class="product-card">
+          <h4 class="card-title">${item.part_num}</h4>
+          <p class="card-text">Description: ${item.item_description}</p>
+          <p>Price: ${item.price}</p>
+          <button class="edit-btn" >Edit</button>
+          <button class="delete-btn">Delete</button>
+        </div>`;
+     
+          
+        $("#admin-output-container").append(adminDOMCards);
 
 
+});
+});
+});
+  }
 
 function grab_data(val) {
 
