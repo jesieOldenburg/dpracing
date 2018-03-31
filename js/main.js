@@ -104,7 +104,7 @@ $(document).on("click", ".edit-btn", function(event) {
   event.preventDefault();
   let editTarget = $(this).parent("div"),
       fb_id = $(this).data("edit-id");
-
+      console.log("what is edit", fb_id);
   editTarget.attr("id", "edit-card-target");
   editorInterface(editTarget);
   return fb_id;
