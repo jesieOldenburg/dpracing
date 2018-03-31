@@ -1,0 +1,222 @@
+.btn:not(:disabled):not(.disabled) {
+  background-color: #D62828;
+  margin: auto; }
+
+#landing-cta-button {
+  margin: auto; }
+
+.btn:not(:disabled):not(.disabled) {
+  margin: auto; }
+
+.btn:not(:disabled):not(.disabled) {
+  width: 105px; }
+
+.h1, h1 {
+  margin: auto;
+  display: block;
+  text-align: center; }
+
+.h3, h3 {
+  text-align: center;
+  margin: auto;
+  /*border-bottom:2px solid black;*/ }
+
+#brands-header {
+  border-bottom: 1px solid black;
+  width: 400px;
+  padding: 20px; }
+
+.landing_article_titles {
+  font-size: large;
+  border-bottom: 2px solid black;
+  padding-bottom: 15px; }
+
+.brand-logos {
+  width: 100px;
+  height: 20px; }
+
+#brands-p {
+  margin: auto;
+  text-align: center;
+  width: 773px; }
+
+#products-page-h1 {
+  /*border-bottom:1px solid black;*/
+  margin: 50px;
+  padding-bottom: 20px;
+  padding: 0px;
+  font-size: 55px; }
+
+.navbar.navbar-dark.navbar-expand-md.navigation-clean-search {
+  background-color: #003049; }
+
+#nav-contact-link {
+  margin-right: 330px; }
+
+.navbar-dark .navbar-brand:focus, .navbar-dark .navbar-brand:hover {
+  color: #F77F00; }
+
+.card-group {
+  padding-bottom: 50px; }
+
+@media (max-width: 767px) {
+  .article-list h2 {
+    margin-bottom: 25px;
+    padding-top: 25px;
+    font-size: 24px; } }
+.header-dark {
+  margin-top: 35px;
+  margin-top: 35px;
+  height: 348px;
+  padding: 40px; }
+
+.article-list {
+  margin-top: -85px; }
+
+#landing-cta-btn {
+  margin-top: 35px;
+  background-color: #fcbf49;
+  width: 234px;
+  height: 60px;
+  font-size: 31px;
+  font-family: 'Hammersmith One', sans-serif;
+  color: #003049;
+  padding-top: 9px; }
+
+.text-center {
+  padding: 16px;
+  margin-top: 30px; }
+
+#landing-article-row {
+  margin-top: 45px; }
+
+#landing-brands-header {
+  font-size: 68px;
+  margin-top: 130px;
+  color: #d62828; }
+
+.brand-logos {
+  margin: 35px;
+  margin-left: 95px; }
+
+#footer {
+  margin-top: 16px; }
+
+.footer_links {
+  padding: 10px;
+  margin: auto;
+  text-align: center;
+  color: white;
+  /*margin-top:15px;*/ }
+
+#footer-copyright {
+  margin: auto;
+  text-align: center; }
+
+#brand-logo-group {
+  display: flex;
+  align-items: start;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-content: space-between; }
+
+.brand-logos {
+  margin: auto;
+  max-height: 150px; }
+
+#landing-header-billboard {
+  background-color: #003049;
+  margin: -35px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  height: 597px; }
+
+#landing-h1 {
+  color: #000000;
+  background-color: rgba(255, 255, 255, 0.76);
+  font-size: 54px;
+  height: 402px;
+  font-family: 'Doppio One', sans-serif;
+  width: 871px;
+  /*margin-right:-0px;*/
+  /*min-width:500px;*/
+  /*max-width:1000px;*/
+  padding: 60px; }
+
+#landing-parts-header {
+  color: #F77F00;
+  margin-top: 150px;
+  font-size: 37px; }
+
+#news-articles-section {
+  margin-top: -70px;
+  margin-bottom: 90px; }
+
+#landing-h1 {
+  margin: auto; }
+
+#product-arrow {
+  color: #f77f00; }
+
+#gallery-arrow {
+  color: #d62828; }
+
+#landing-main-p {
+  font-size: 30px;
+  background-color: rgba(0, 0, 0, 0); }
+
+#landing-h1 {
+  border-radius: 10%; }
+
+#tech-arrow {
+  color: #fcbf49; }
+
+#contact-form {
+  margin: 126px;
+  padding-right: 70px;
+  padding-left: 70px;
+  background-color: rgba(96, 93, 93, 0.31); }
+
+#contact-header {
+  font-size: 55px;
+  font-family: 'Doppio One', sans-serif; }
+
+#product-header {
+  margin: 24px;
+  padding: 25px;
+  background-image: url("../../assets/img/parts_header.jpg");
+  width: 1137px; }
+
+#product-details-cards {
+  width: 800px;
+  margin: auto;
+  padding: 25px;
+  background-color: #f77f00; }
+
+#product-details-heading {
+  margin: auto; }
+
+#product-header {
+  margin: auto;
+  margin-top: 50px; }
+
+.footer-basic {
+  height: 122px;
+  height: 88px;
+  margin-top: 16px; }
+
+.footer_links {
+  color: #f77f00; }
+
+.product-card {
+  width: 400px;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: space-between; }
+
+.card-title {
+  text-align: center;
+  color: orange; }
+
+/*# sourceMappingURL=main.css.map */
