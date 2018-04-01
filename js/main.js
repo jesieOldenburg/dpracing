@@ -16,12 +16,13 @@ searchLogic = require("./data_calls");
 function createInventoryItem () {
   
   let newInventoryItem = {
-    part_num: $("#admin-partnumber-input").val(),
-    item_description: $("#admin-description-input").val(),
-    price:$("#admin-price-input").val()
+	part_num: $("#admin-partnumber-input").val(),
+	item_description: $("#admin-description-input").val(),
+	price:$("#admin-price-input").val()
   };
   return newInventoryItem;
 }
+
 
 /** 
  * Login Button Functionality
@@ -68,14 +69,14 @@ $("#admin-search-field").focusout(function(event) {
   let adminSearchValue = $("#admin-search-field").val();
   
   $("#admin-search-btn").attr('value', adminSearchValue);
-  console.log("button value is?", $("#admin-search-btn").attr("value"));
+  // console.log("button value is?", $("#admin-search-btn").attr("value"));
   return adminSearchValue;
 });
 
 
 //Admin search button El...
 $("#admin-search-btn").click(function(event) {
-  event.preventDefault();
+  // event.preventDefault();
 
   let val = event.currentTarget.value;
   
@@ -85,13 +86,13 @@ $("#admin-search-btn").click(function(event) {
 
 function editorInterface (editTarget) {
   let interfaceHtml = ` 
-    <div class="edit-interface-container">
-        <input class="pn-edit-field" type="text" placeholder="Part Number">
-        <input class="descr-edit-field" type="text" placeholder="Item Description">
-        <input class="price-edit-field"type="text" placeholder="Price">
-        <button class="save-edits-btn">Save Changes</button>
-        <button class="cancel-edits-btn">Discard Changes</button>
-    </div>
+	<div class="edit-interface-container">
+		<input class="pn-edit-field" type="text" placeholder="Part Number">
+		<input class="descr-edit-field" type="text" placeholder="Item Description">
+		<input class="price-edit-field"type="text" placeholder="Price">
+		<button class="save-edits-btn">Save Changes</button>
+		<button class="cancel-edits-btn">Discard Changes</button>
+	</div>
   `;
 
   editTarget.append(interfaceHtml);
@@ -100,33 +101,41 @@ function editorInterface (editTarget) {
 
 
 
-$(document).on("click", ".edit-btn", function(event) {
+$(document).on("click", "#edit-btn", function(event) {
   event.preventDefault();
-  let editTarget = $(this).parent("div"),
-      fb_id = $(this).data("edit-id");
-      console.log("what is edit", fb_id);
-  editTarget.attr("id", "edit-card-target");
-  editorInterface(editTarget);
-  return fb_id;
-});
+  var fb_id = $(this).data("edit-product");
+	  // console.log("WHAT IS FB ID", fb_id);
+	let editTarget = $(this).parent("div");
+	editTarget.attr("id", "edit-card-target");
+	  console.log("what is edit target", editTarget);
+  db.getProductById(fb_id)
+
+.then((productData, fb_id) => {
+	adminPage.adminEditForm(productData, fb_id);	
+})
+.then((prepedEditForm) => {
+	console.log("what is prepped form", prepedEditForm);
+	$("#edit-card-target").append(prepedEditForm);
+}); 
+  }); //"on click closing set"
 
 // Begin Edit Functionality >>>>>>>>>>>>>>>>>>>>>>
 
 function editFBitems (editTarget, fb_id) {
 
   let editFieldOneVal = $(".pn-edit-field").val(),
-      editFieldTwoVal = $(".descr-edit-field").val(),
-      editFieldThrVal = $(".price-edit-field").val(),
-      updatedCard = createInventoryItem();
-       
-       updatedCard.part_num = editFieldTwoVal;
-       updatedCard.item_description = editFieldOneVal;
-       updatedCard.price = editFieldThrVal;
+	  editFieldTwoVal = $(".descr-edit-field").val(),
+	  editFieldThrVal = $(".price-edit-field").val(),
+	  updatedCard = createInventoryItem();
+	   
+	   updatedCard.part_num = editFieldTwoVal;
+	   updatedCard.item_description = editFieldOneVal;
+	   updatedCard.price = editFieldThrVal;
 
   console.log("OBJ?>>>>>>>>>>>>>>>>>>>>>>>", updatedCard);       
-  // console.log("What is the editfieldvalue", editFieldOneVal);
-  // console.log("What is the editfieldvalue", editFieldTwoVal);
-  // console.log("What is the editfieldvalue", editFieldThrVal);
+  console.log("What is the editfieldvalue", editFieldOneVal);
+  console.log("What is the editfieldvalue", editFieldTwoVal);
+  console.log("What is the editfieldvalue", editFieldThrVal);
 
 adminPage.pushEditsToFB(updatedCard, fb_id);
 

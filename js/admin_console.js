@@ -23,14 +23,36 @@ function pushNewItemToFB (newItemObject) {
 
 console.log("ARRAY OF KEYS", arrayOfKeys);
 
-
+function adminEditForm(productData, fb_id){
+    
+    return new Promise(function (resolve, reject) {
+    
+    let productEditObj = {
+        item_description: productData ? productData.item_description : "",
+        part_num: productData ? productData.part_num : "",
+        price: productData ? productData.price : "",
+    },
+    
+    interfaceHtml = ` 
+  <div id="edit-interface-container" >
+    <input class="pn-edit-field" value="${productEditObj.item_description}"type="text" placeholder="Part Number">
+    <input class="descr-edit-field" value="${productEditObj.part_num}"type="text" placeholder="Item Description">
+    <input class="price-edit-field" value="${productEditObj.price}"type="text" placeholder="Price">
+    <button class="save-edits-btn">Save Changes</button>
+    <button class="cancel-edits-btn">Discard Changes</button>
+  </div>
+  `;
+        
+    resolve(interfaceHtml);
+    });
+  }
 
 //This function needs to receive the ID of the object being modified in Firebase.
 function pushEditsToFB (updatedCard, fb_id) {
 
   return $.ajax({
     url: `${firebase.getFBsettings().databaseURL}/products/${fb_id}.json`,
-    type: 'PUT',
+    type: 'POST',
     data: JSON.stringify(updatedCard),
     dataType: 'json',
   })
@@ -69,4 +91,4 @@ function deleteFBitems () {
   
 }
 
-module.exports = { pushNewItemToFB,  deleteFBitems, pushEditsToFB };
+module.exports = { pushNewItemToFB,  deleteFBitems, pushEditsToFB, adminEditForm };

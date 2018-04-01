@@ -59,11 +59,9 @@ function partNumberFilter(productData, val) {
 }
 
 
-/**
- * [searchLogic description]
- * @param  {[type]} val [description]
- * @return {[type]}     [description]
- */
+
+
+
 function searchLogic(val) {
     
   return $.ajax({
@@ -73,12 +71,17 @@ function searchLogic(val) {
           data: 'json'
 
   }).done( (data) => {
+    
     var IdArray = Object.keys(data);
-          console.log("Successful XHR Call");
+        console.log("Successful XHR Call", IdArray);
 
-          $.each(IdArray, function(key) {
-            data.id = key; 
-          }); 
+    // for(let i = 0; i < IdArray.length; i++){
+    //   var currentProductID = IdArray[i];
+    //   if (data[currentProductID] == ) {
+    //     // statement
+    //   }
+    // }
+ 
 
           $.each(data, function(index, item) {
 
@@ -93,26 +96,46 @@ function searchLogic(val) {
       if (fullNum === adminTarget  || firstThree === adminTarget) {
           adminSearchArray.push(item);
       
-      $.each(adminSearchArray, function(index, item) {
+      // $.each(adminSearchArray, function(index, item) {
+        for(let i = 0; i < adminSearchArray.length; i++){
 
-        let adminDOMCards = `
-        <div id="${itemId}" class="product-card">
-          <h4 class="card-title">${item.part_num}</h4>
-          <p class="card-text">Description: ${item.item_description}</p>
-          <p>Price: ${item.price}</p>
-          <button class="edit-btn" >Edit</button>
-          <button class="delete-btn">Delete</button>
+         var adminDOMCards = `
+        <div  class="product-card">
+          <h4 class="card-title">${this.part_num}</h4>
+          <p class="card-text">Description: ${this.item_description}</p>
+          <p>Price: ${this.price}</p>
+          <button id="edit-btn" >Edit</button>
+          <button id="delete-btn">Delete</button>
         </div>`;
-     
+        
         $("#admin-output-container").append(adminDOMCards);
-          });
 
+        }
+
+     
+          // }); //$.each(adminSearchArray) brackets...
           }//If closing bracket...
 
 });
 });
 }
-  
+
+function getProductById (fb_id) {
+
+  return $.ajax({
+         url: `${firebase.getFBsettings().databaseURL}/products/${fb_id}.json`
+}).done((productData) =>{
+    console.log("what is productData", productData);
+    return productData;
+}).fail((error) =>{
+    return error;
+});
+}
+
+
+
+
+
 
 function grab_data(val) {
 
@@ -134,5 +157,5 @@ function grab_data(val) {
 
 
 module.exports = {
-  grab_data, partNumberFilter, productData, searchLogic
+  grab_data, partNumberFilter, productData, searchLogic, getProductById
 };
