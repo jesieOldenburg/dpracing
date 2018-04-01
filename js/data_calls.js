@@ -104,8 +104,8 @@ function searchLogic(val) {
           <h4 class="card-title">${this.part_num}</h4>
           <p class="card-text">Description: ${this.item_description}</p>
           <p>Price: ${this.price}</p>
-          <button id="edit-btn" >Edit</button>
-          <button id="delete-btn">Delete</button>
+          <button class="edit-btn" >Edit</button>
+          <button class="delete-btn">Delete</button>
         </div>`;
         
         $("#admin-output-container").append(adminDOMCards);

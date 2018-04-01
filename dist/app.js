@@ -24,36 +24,36 @@ function pushNewItemToFB (newItemObject) {
 
 console.log("ARRAY OF KEYS", arrayOfKeys);
 
-function adminEditForm(productData, fb_id){
+// function adminEditForm(productData, fb_id){
     
-    return new Promise(function (resolve, reject) {
+//     return new Promise(function (resolve, reject) {
     
-    let productEditObj = {
-        item_description: productData ? productData.item_description : "",
-        part_num: productData ? productData.part_num : "",
-        price: productData ? productData.price : "",
-    },
+//     let productEditObj = {
+//         item_description: productData ? productData.item_description : "",
+//         part_num: productData ? productData.part_num : "",
+//         price: productData ? productData.price : "",
+//     },
     
-    interfaceHtml = ` 
-  <div id="edit-interface-container" >
-    <input class="pn-edit-field" value="${productEditObj.item_description}"type="text" placeholder="Part Number">
-    <input class="descr-edit-field" value="${productEditObj.part_num}"type="text" placeholder="Item Description">
-    <input class="price-edit-field" value="${productEditObj.price}"type="text" placeholder="Price">
-    <button class="save-edits-btn">Save Changes</button>
-    <button class="cancel-edits-btn">Discard Changes</button>
-  </div>
-  `;
+//     interfaceHtml = ` 
+//   <div id="edit-interface-container" >
+//     <input class="pn-edit-field" value="${productEditObj.item_description}"type="text" placeholder="Part Number">
+//     <input class="descr-edit-field" value="${productEditObj.part_num}"type="text" placeholder="Item Description">
+//     <input class="price-edit-field" value="${productEditObj.price}"type="text" placeholder="Price">
+//     <button class="save-edits-btn">Save Changes</button>
+//     <button class="cancel-edits-btn">Discard Changes</button>
+//   </div>
+//   `;
         
-    resolve(interfaceHtml);
-    });
-  }
+//     resolve(interfaceHtml);
+//     });
+//   }
 
 //This function needs to receive the ID of the object being modified in Firebase.
 function pushEditsToFB (updatedCard, fb_id) {
 
   return $.ajax({
     url: `${firebase.getFBsettings().databaseURL}/products/${fb_id}.json`,
-    type: 'POST',
+    type: 'PATCH',
     data: JSON.stringify(updatedCard),
     dataType: 'json',
   })
@@ -92,7 +92,7 @@ function deleteFBitems () {
   
 }
 
-module.exports = { pushNewItemToFB,  deleteFBitems, pushEditsToFB, adminEditForm };
+module.exports = { pushNewItemToFB,  deleteFBitems, pushEditsToFB };
 },{"./fb-config":3,"./user.js":6}],2:[function(require,module,exports){
 "use strict";
 
@@ -200,8 +200,8 @@ function searchLogic(val) {
           <h4 class="card-title">${this.part_num}</h4>
           <p class="card-text">Description: ${this.item_description}</p>
           <p>Price: ${this.price}</p>
-          <button id="edit-btn" >Edit</button>
-          <button id="delete-btn">Delete</button>
+          <button class="edit-btn" >Edit</button>
+          <button class="delete-btn">Delete</button>
         </div>`;
         
         $("#admin-output-container").append(adminDOMCards);
@@ -389,7 +389,7 @@ $("#admin-search-btn").click(function(event) {
 
 });
 
-function editorInterface (editTarget) {
+function editFormPrinter (editTarget) {
   let interfaceHtml = ` 
 	<div class="edit-interface-container">
 		<input class="pn-edit-field" type="text" placeholder="Part Number">
@@ -400,31 +400,31 @@ function editorInterface (editTarget) {
 	</div>
   `;
 
-  editTarget.append(interfaceHtml);
+  $("#edit-card-target").append(interfaceHtml);
 }
 
 
 
 
-$(document).on("click", "#edit-btn", function(event) {
-  event.preventDefault();
-  var fb_id = $(this).data("edit-product");
-	  // console.log("WHAT IS FB ID", fb_id);
+$(document).on("click", ".edit-btn", function(event) {
+	event.preventDefault();
+		console.log("edits firee");
+	  
+	var fb_id = $(this).data("edit-product");
+			console.log("WHAT IS FB ID", fb_id);
+
 	let editTarget = $(this).parent("div");
-	editTarget.attr("id", "edit-card-target");
-	  console.log("what is edit target", editTarget);
-  db.getProductById(fb_id)
-
-.then((productData, fb_id) => {
-	adminPage.adminEditForm(productData, fb_id);	
+		editTarget.attr("id", "edit-card-target");
+			console.log("what is edit target", editTarget);
+	
+	db.getProductById(fb_id);
+	editFormPrinter(editTarget);
 })
-.then((prepedEditForm) => {
-	console.log("what is prepped form", prepedEditForm);
-	$("#edit-card-target").append(prepedEditForm);
-}); 
-  }); //"on click closing set"
+.then((productData) => {
+	console.log("this be productData", productData);
 
-// Begin Edit Functionality >>>>>>>>>>>>>>>>>>>>>>
+});
+
 
 function editFBitems (editTarget, fb_id) {
 
@@ -448,7 +448,7 @@ adminPage.pushEditsToFB(updatedCard, fb_id);
 
 
 
-$(document).on('click', '.save-edits-btn', function(event) {
+$(document).on("click", ".save-edits-btn", function(event) {
   event.preventDefault();
   console.log("save me");
 

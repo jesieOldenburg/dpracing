@@ -84,7 +84,7 @@ $("#admin-search-btn").click(function(event) {
 
 });
 
-function editorInterface (editTarget) {
+function editFormPrinter (editTarget) {
   let interfaceHtml = ` 
 	<div class="edit-interface-container">
 		<input class="pn-edit-field" type="text" placeholder="Part Number">
@@ -95,31 +95,31 @@ function editorInterface (editTarget) {
 	</div>
   `;
 
-  editTarget.append(interfaceHtml);
+  $("#edit-card-target").append(interfaceHtml);
 }
 
 
 
 
-$(document).on("click", "#edit-btn", function(event) {
-  event.preventDefault();
-  var fb_id = $(this).data("edit-product");
-	  // console.log("WHAT IS FB ID", fb_id);
+$(document).on("click", ".edit-btn", function(event) {
+	event.preventDefault();
+		console.log("edits firee");
+	  
+	var fb_id = $(this).data("edit-product");
+			console.log("WHAT IS FB ID", fb_id);
+
 	let editTarget = $(this).parent("div");
-	editTarget.attr("id", "edit-card-target");
-	  console.log("what is edit target", editTarget);
-  db.getProductById(fb_id)
-
-.then((productData, fb_id) => {
-	adminPage.adminEditForm(productData, fb_id);	
+		editTarget.attr("id", "edit-card-target");
+			console.log("what is edit target", editTarget);
+	
+	db.getProductById(fb_id);
+	editFormPrinter(editTarget);
 })
-.then((prepedEditForm) => {
-	console.log("what is prepped form", prepedEditForm);
-	$("#edit-card-target").append(prepedEditForm);
-}); 
-  }); //"on click closing set"
+.then((productData) => {
+	console.log("this be productData", productData);
 
-// Begin Edit Functionality >>>>>>>>>>>>>>>>>>>>>>
+});
+
 
 function editFBitems (editTarget, fb_id) {
 
@@ -143,7 +143,7 @@ adminPage.pushEditsToFB(updatedCard, fb_id);
 
 
 
-$(document).on('click', '.save-edits-btn', function(event) {
+$(document).on("click", ".save-edits-btn", function(event) {
   event.preventDefault();
   console.log("save me");
 
