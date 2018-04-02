@@ -84,53 +84,59 @@ $("#admin-search-btn").click(function(event) {
 
 });
 
+$(document).on("click", ".save-btn", function(event) {
+	// event.preventDefault();
+	console.log("save me");
+
+	editFBitems();
+
+});
+
 function editFormPrinter (editTarget) {
-  let interfaceHtml = ` 
-	<div class="edit-interface-container">
-		<input class="pn-edit-field" type="text" placeholder="Part Number">
-		<input class="descr-edit-field" type="text" placeholder="Item Description">
-		<input class="price-edit-field"type="text" placeholder="Price">
-		<button class="save-edits-btn">Save Changes</button>
-		<button class="cancel-edits-btn">Discard Changes</button>
-	</div>
+  	let interfaceHtml = ` 
+		<div id="edit-interface-container">
+			<input class="pn-edit-field" type="text" placeholder="Part Number">
+			<input class="descr-edit-field" type="text" placeholder="Item Description">
+			<input class="price-edit-field"type="text" placeholder="Price">
+			<button class="save-btn">Save Changes</button>
+			<button class="cancel-btn">Discard Changes</button>
+		</div>
   `;
 
-  $("#edit-card-target").append(interfaceHtml);
+ 	 $("#edit-card-target").append(interfaceHtml);
 }
 
 
 
 
 $(document).on("click", ".edit-btn", function(event) {
-	event.preventDefault();
-		console.log("edits firee");
-	  
-	var fb_id = $(this).data("edit-product");
-			console.log("WHAT IS FB ID", fb_id);
-
+	// event.preventDefault();
+	
 	let editTarget = $(this).parent("div");
 		editTarget.attr("id", "edit-card-target");
-			console.log("what is edit target", editTarget);
+			// console.log("what is edit target", editTarget);
 	
-	db.getProductById(fb_id);
 	editFormPrinter(editTarget);
 })
 .then((productData) => {
+	var fb_id = productData.data("edit-id");
+			console.log("WHAT IS FB ID", fb_id);
 	console.log("this be productData", productData);
 
+	db.getProductById(fb_id);
 });
 
 
 function editFBitems (editTarget, fb_id) {
 
-  let editFieldOneVal = $(".pn-edit-field").val(),
-	  editFieldTwoVal = $(".descr-edit-field").val(),
-	  editFieldThrVal = $(".price-edit-field").val(),
-	  updatedCard = createInventoryItem();
-	   
-	   updatedCard.part_num = editFieldTwoVal;
-	   updatedCard.item_description = editFieldOneVal;
-	   updatedCard.price = editFieldThrVal;
+	let editFieldOneVal = $(".pn-edit-field").val(),
+		editFieldTwoVal = $(".descr-edit-field").val(),
+		editFieldThrVal = $(".price-edit-field").val(),
+		updatedCard = createInventoryItem();
+
+	updatedCard.part_num = editFieldTwoVal;
+	updatedCard.item_description = editFieldOneVal;
+	updatedCard.price = editFieldThrVal;
 
   console.log("OBJ?>>>>>>>>>>>>>>>>>>>>>>>", updatedCard);       
   console.log("What is the editfieldvalue", editFieldOneVal);
@@ -143,18 +149,11 @@ adminPage.pushEditsToFB(updatedCard, fb_id);
 
 
 
-$(document).on("click", ".save-edits-btn", function(event) {
-  event.preventDefault();
-  console.log("save me");
-
-  editFBitems();
-
-});
-
 
 //>>>>>>>>>>>>>>>>>>>>>>>>End Edit Functionality
 
 $(document).on("click", ".delete-btn", function(event) {
-  event.preventDefault();
   console.log("delete clicked");
+  // event.preventDefault();
+
 });

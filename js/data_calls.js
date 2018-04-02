@@ -72,8 +72,8 @@ function searchLogic(val) {
 
   }).done( (data) => {
     
-    var IdArray = Object.keys(data);
-        console.log("Successful XHR Call", IdArray);
+
+    console.log("Successful XHR Call");
 
     // for(let i = 0; i < IdArray.length; i++){
     //   var currentProductID = IdArray[i];
