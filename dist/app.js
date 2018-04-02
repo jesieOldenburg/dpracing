@@ -7,6 +7,7 @@ let signInAuth = require("./user.js");
 
 var arrayOfKeys = [];
 
+
 function pushNewItemToFB (newItemObject) {
   console.log("pushNewItemToFB", newItemObject);
   
@@ -26,10 +27,10 @@ console.log("ARRAY OF KEYS", arrayOfKeys);
 
 
 //This function needs to receive the ID of the object being modified in Firebase.
-function pushEditsToFB (updatedCard, fb_id) {
-
+function pushEditsToFB (updatedCard, itemToPushID) {
+console.log("WHAT IS THE EDITED ITEM TO PUSH INSIDE THE AJAX CALL", itemToPushID);
   return $.ajax({
-    url: `${firebase.getFBsettings().databaseURL}/products/${fb_id}.json`,
+    url: `${firebase.getFBsettings().databaseURL}/products/${itemToPushID}.json`,
     type: 'PUT',
     data: JSON.stringify(updatedCard),
     dataType: 'json',
@@ -50,10 +51,10 @@ function pushEditsToFB (updatedCard, fb_id) {
 // }
 
 
-function deleteFBitems () {
+function deleteFBitems (itemToDELETEId) {
   
   return $.ajax({
-    url: `${firebase.getFBsettings().databaseURL}/products.json`,
+    url: `${firebase.getFBsettings().databaseURL}/products/${itemToDELETEId}.json`,
     type: 'DELETE',
     dataType: 'json',
   })
@@ -128,77 +129,77 @@ function partNumberFilter(productData, val) {
         }
 
     });
-    console.log("what is the partnumArray brosef", partnumArray);
+    // console.log("what is the partnumArray brosef", partnumArray);
 }
 
 
 
 
 
-function searchLogic(val) {
-    
+function printSearchResults (data) {
+ 
+let partsSearchQuery = $("#admin-search-btn").attr('value');
+
+$.each(data, function(item, val) {
+
+        var partKey = this.part_num,
+            itemId = this.id, 
+            searchTarget = partsSearchQuery,
+
+            fullNum = partKey.substring(0, 8),
+            firstThree = partKey.substring(0, 4);
+
+        if (fullNum == searchTarget  || firstThree == searchTarget) {
+            adminSearchArray.push(data);
+          
+            for(let i = 0; i < adminSearchArray.length; i++){
+
+                var adminDOMCards = `
+                    <div class="product-card">
+                        <h4 class="card-title">${this.part_num}</h4>
+                        <p class="card-text">Description: ${this.item_description}</p>
+                        <p>Price: ${this.price}</p>
+                        <button class="edit-btn" value="${this.id}">Edit</button>
+                        <button class="delete-btn" value="${this.id}">Delete</button>
+                    </div>`;
+
+                $("#admin-output-container").append(adminDOMCards);
+
+            }
+        }//If closing bracket...
+    }); //first each brackets....
+}
+
+
+
+function searchLogic() {
+
   return $.ajax({
           url: `https://dp-racing.firebaseio.com/products.json`,
           type: 'GET',
           dataType: 'JSON',
-          data: 'json'
-
   }).done( (data) => {
     
-
     console.log("Successful XHR Call");
 
-    // for(let i = 0; i < IdArray.length; i++){
-    //   var currentProductID = IdArray[i];
-    //   if (data[currentProductID] == ) {
-    //     // statement
-    //   }
-    // }
- 
-
-          $.each(data, function(index, item) {
-
-          let partKey = item.part_num,
-              itemId = item.id,
-              adminTarget = val,
-              fullNum = partKey.substring(0, 8),
-              firstThree = partKey.substring(0, 4);
-
-        // console.log("What is itemID?", itemId);
-
-      if (fullNum === adminTarget  || firstThree === adminTarget) {
-          adminSearchArray.push(item);
-      
-      // $.each(adminSearchArray, function(index, item) {
-        for(let i = 0; i < adminSearchArray.length; i++){
-
-         var adminDOMCards = `
-        <div  class="product-card">
-          <h4 class="card-title">${this.part_num}</h4>
-          <p class="card-text">Description: ${this.item_description}</p>
-          <p>Price: ${this.price}</p>
-          <button class="edit-btn" >Edit</button>
-          <button class="delete-btn">Delete</button>
-        </div>`;
-        
-        $("#admin-output-container").append(adminDOMCards);
-
-        }
-
-     
-          // }); //$.each(adminSearchArray) brackets...
-          }//If closing bracket...
-
-});
+    let keys = Object.keys(data);
+    
+    for (var item in data) {
+        var currentProductID = item;
+        data[item].id = currentProductID;
+    }      
+    printSearchResults(data);
 });
 }
+
+
 
 function getProductById (fb_id) {
 
   return $.ajax({
          url: `${firebase.getFBsettings().databaseURL}/products/${fb_id}.json`
 }).done((productData) =>{
-    console.log("what is productData", productData);
+    // console.log("what is productData", productData);
     return productData;
 }).fail((error) =>{
     return error;
@@ -344,38 +345,23 @@ $("#admin-create-btn").click(function(event) {
 
 });
 
-// Set the value of the button the the search query on FOCUS OUT!!!....
-$("#admin-search-field").focusout(function(event) {
-  event.preventDefault();
-
-  let adminSearchValue = $("#admin-search-field").val();
-  
-  $("#admin-search-btn").attr('value', adminSearchValue);
-  // console.log("button value is?", $("#admin-search-btn").attr("value"));
-  return adminSearchValue;
-});
-
 
 //Admin search button El...
 $("#admin-search-btn").click(function(event) {
-  // event.preventDefault();
+    let val = $("#admin-search-field").val();
+    console.log("val 1", val);
 
-  let val = event.currentTarget.value;
-  
-  db.searchLogic(val);
-
+    $("#admin-search-btn").attr('value', val);
+    db.searchLogic();
 });
 
 $(document).on("click", ".save-btn", function(event) {
-	// event.preventDefault();
-	console.log("save me");
-
 	editFBitems();
-
 });
 
 function editFormPrinter (editTarget) {
-  	let interfaceHtml = ` 
+  	
+    let interfaceHtml = ` 
 		<div id="edit-interface-container">
 			<input class="pn-edit-field" type="text" placeholder="Part Number">
 			<input class="descr-edit-field" type="text" placeholder="Item Description">
@@ -389,33 +375,24 @@ function editFormPrinter (editTarget) {
 }
 
 
-
-
 $(document).on("click", ".edit-btn", function(event) {
-	// event.preventDefault();
-	
+    console.log("clicked edit");
 	let editTarget = $(this).parent("div");
-		editTarget.attr("id", "edit-card-target");
-			// console.log("what is edit target", editTarget);
-	
+    editTarget.attr('id', 'edit-card-target');
+    console.log("what is the edit target", editTarget);
 	editFormPrinter(editTarget);
-})
-.then((productData) => {
-	var fb_id = productData.data("edit-id");
-			console.log("WHAT IS FB ID", fb_id);
-	console.log("this be productData", productData);
-
-	db.getProductById(fb_id);
 });
 
 
-function editFBitems (editTarget, fb_id) {
+function editFBitems (editTarget) {
 
-	let editFieldOneVal = $(".pn-edit-field").val(),
-		editFieldTwoVal = $(".descr-edit-field").val(),
-		editFieldThrVal = $(".price-edit-field").val(),
-		updatedCard = createInventoryItem();
+	let itemToPushID = $("#edit-card-target").children(".edit-btn").val(),
+        editFieldOneVal = $(".pn-edit-field").val(),
+        editFieldTwoVal = $(".descr-edit-field").val(),
+        editFieldThrVal = $(".price-edit-field").val(),
+        updatedCard = createInventoryItem();
 
+        console.log("save me, itemToPushID?", itemToPushID);
 	updatedCard.part_num = editFieldTwoVal;
 	updatedCard.item_description = editFieldOneVal;
 	updatedCard.price = editFieldThrVal;
@@ -425,19 +402,17 @@ function editFBitems (editTarget, fb_id) {
   console.log("What is the editfieldvalue", editFieldTwoVal);
   console.log("What is the editfieldvalue", editFieldThrVal);
 
-adminPage.pushEditsToFB(updatedCard, fb_id);
+adminPage.pushEditsToFB(updatedCard, itemToPushID);
 
 }
-
-
 
 
 //>>>>>>>>>>>>>>>>>>>>>>>>End Edit Functionality
 
 $(document).on("click", ".delete-btn", function(event) {
   console.log("delete clicked");
-  // event.preventDefault();
-
+  let itemToDELETEId = event.currentTarget.value;
+  adminPage.deleteFBitems(itemToDELETEId);
 });
 
 },{"./admin_console":1,"./data_calls":2,"./fb-config":3,"./fb-key.js":4,"./user":6}],6:[function(require,module,exports){
