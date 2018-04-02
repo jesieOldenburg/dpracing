@@ -1,5 +1,5 @@
 @import "palette";
-
+@import "constants";
 %button-style {
   background-color: #a9ff63;
   font-weight: bold;
@@ -27,4 +27,8 @@
 .admin-h4 {
   text-align: center;
   font-size: 36px;
+}
+
+.product-card {
+
 }

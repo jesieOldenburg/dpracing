@@ -6,6 +6,7 @@ let signInAuth = require("./user.js");
 
 var arrayOfKeys = [];
 
+
 function pushNewItemToFB (newItemObject) {
   console.log("pushNewItemToFB", newItemObject);
   
@@ -24,12 +25,11 @@ function pushNewItemToFB (newItemObject) {
 console.log("ARRAY OF KEYS", arrayOfKeys);
 
 
-
 //This function needs to receive the ID of the object being modified in Firebase.
-function pushEditsToFB (updatedCard, fb_id) {
-
+function pushEditsToFB (updatedCard, itemToPushID) {
+console.log("WHAT IS THE EDITED ITEM TO PUSH INSIDE THE AJAX CALL", itemToPushID);
   return $.ajax({
-    url: `${firebase.getFBsettings().databaseURL}/products/${fb_id}.json`,
+    url: `${firebase.getFBsettings().databaseURL}/products/${itemToPushID}.json`,
     type: 'PUT',
     data: JSON.stringify(updatedCard),
     dataType: 'json',
@@ -50,10 +50,10 @@ function pushEditsToFB (updatedCard, fb_id) {
 // }
 
 
-function deleteFBitems () {
+function deleteFBitems (itemToDELETEId) {
   
   return $.ajax({
-    url: `${firebase.getFBsettings().databaseURL}/products.json`,
+    url: `${firebase.getFBsettings().databaseURL}/products/${itemToDELETEId}.json`,
     type: 'DELETE',
     dataType: 'json',
   })

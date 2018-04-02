@@ -1,0 +1,50 @@
+
+
+
+
+
+
+
+// ADMIN PAGE STYLES>>>>>>>>>>>>>>>>>>>
+.product-card {
+  width: 400px;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: space-between;
+}
+
+.card-title {
+  text-align: center;
+  color: orange;
+}
+
+
+//BEGIN footer styles >>>>>>>>>>
+.footer-basic {
+  height:122px;
+  height:88px;
+  margin-top:16px;
+}
+
+.footer_links {
+  color:#f77f00;
+}
+#footer-copyright {
+  margin:auto;
+  text-align:center;
+}
+
+.footer {
+  margin-top:16px;
+}
+
+.footer_links {
+  padding:10px;
+  margin:auto;
+  text-align:center;
+  color:white;
+  /*margin-top:15px;*/
+}
+
+
+// >>>>>>>>>> END footer styles

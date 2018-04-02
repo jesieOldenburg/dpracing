@@ -55,64 +55,87 @@ function partNumberFilter(productData, val) {
         }
 
     });
-    console.log("what is the partnumArray brosef", partnumArray);
+    // console.log("what is the partnumArray brosef", partnumArray);
 }
 
 
-/**
- * [searchLogic description]
- * @param  {[type]} val [description]
- * @return {[type]}     [description]
- */
-function searchLogic(val) {
-    
+
+
+
+function printSearchResults (data) {
+ 
+let partsSearchQuery = $("#admin-search-btn").attr('value');
+
+$.each(data, function(item, val) {
+
+        var partKey = this.part_num,
+            itemId = this.id, 
+            searchTarget = partsSearchQuery,
+
+            fullNum = partKey.substring(0, 8),
+            firstThree = partKey.substring(0, 4);
+
+        if (fullNum == searchTarget  || firstThree == searchTarget) {
+            adminSearchArray.push(data);
+          
+            for(let i = 0; i < adminSearchArray.length; i++){
+
+                var adminDOMCards = `
+                    <div class="product-card">
+                        <h4 class="card-title">${this.part_num}</h4>
+                        <p class="card-text">Description: ${this.item_description}</p>
+                        <p>Price: ${this.price}</p>
+                        <button class="edit-btn" value="${this.id}">Edit</button>
+                        <button class="delete-btn" value="${this.id}">Delete</button>
+                    </div>`;
+
+                $("#admin-output-container").append(adminDOMCards);
+
+            }
+        }//If closing bracket...
+    }); //first each brackets....
+}
+
+
+
+function searchLogic() {
+
   return $.ajax({
           url: `https://dp-racing.firebaseio.com/products.json`,
           type: 'GET',
           dataType: 'JSON',
-          data: 'json'
-
   }).done( (data) => {
-    var IdArray = Object.keys(data);
-          console.log("Successful XHR Call");
+    
+    console.log("Successful XHR Call");
 
-          $.each(IdArray, function(key) {
-            data.id = key; 
-          }); 
-
-          $.each(data, function(index, item) {
-
-          let partKey = item.part_num,
-              itemId = item.id,
-              adminTarget = val,
-              fullNum = partKey.substring(0, 8),
-              firstThree = partKey.substring(0, 4);
-
-        // console.log("What is itemID?", itemId);
-
-      if (fullNum === adminTarget  || firstThree === adminTarget) {
-          adminSearchArray.push(item);
-      
-      $.each(adminSearchArray, function(index, item) {
-
-        let adminDOMCards = `
-        <div id="${itemId}" class="product-card">
-          <h4 class="card-title">${item.part_num}</h4>
-          <p class="card-text">Description: ${item.item_description}</p>
-          <p>Price: ${item.price}</p>
-          <button class="edit-btn" >Edit</button>
-          <button class="delete-btn">Delete</button>
-        </div>`;
-     
-        $("#admin-output-container").append(adminDOMCards);
-          });
-
-          }//If closing bracket...
-
-});
+    let keys = Object.keys(data);
+    
+    for (var item in data) {
+        var currentProductID = item;
+        data[item].id = currentProductID;
+    }      
+    printSearchResults(data);
 });
 }
-  
+
+
+
+function getProductById (fb_id) {
+
+  return $.ajax({
+         url: `${firebase.getFBsettings().databaseURL}/products/${fb_id}.json`
+}).done((productData) =>{
+    // console.log("what is productData", productData);
+    return productData;
+}).fail((error) =>{
+    return error;
+});
+}
+
+
+
+
+
 
 function grab_data(val) {
 
@@ -134,5 +157,5 @@ function grab_data(val) {
 
 
 module.exports = {
-  grab_data, partNumberFilter, productData, searchLogic
+  grab_data, partNumberFilter, productData, searchLogic, getProductById
 };
