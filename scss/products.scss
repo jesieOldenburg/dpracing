@@ -1,12 +1,53 @@
 @import "main";
 @import "palette";
+// @import "console";
+#products-page-h1 {
+    text-align: center;
+    margin: auto;
+}
 
-.card-body{
-  display: flex;
-  flex-flow: row wrap;
-  width: 200px;
+.product-card {
+    width: 300px;
+    display: flex;
+    flex-direction: column wrap;
+    justify-content: center;
+    border: solid 1px black;
+    margin: 10px;
+    padding: 20px;
+}
+
+.card-title {
+    color: $color1;
+    font-size: 36px;
+    text-align: left;
 }
 
 .card-text {
-  color: red;
+    text-align: left;
+    font-size: 16px;
+}
+
+#product-output {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    padding: 25px;
+}
+
+.img-container {
+    display: flex;
+    justify-content: center;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+}
+
+.img-container img {}
+
+.card-pic {
+    display: block;
+    width: 200px;
+    height: auto;
+    // align-self: center;
+    margin: auto;
 }

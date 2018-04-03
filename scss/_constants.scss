@@ -1,50 +1,92 @@
-
-
-
-
-
-
-
 // ADMIN PAGE STYLES>>>>>>>>>>>>>>>>>>>
 .product-card {
-  width: 400px;
-  display: flex;
-  flex-flow: row wrap;
-  align-content: space-between;
+    width: 400px;
+    display: flex;
+    flex-flow: row wrap;
+    align-content: space-between;
 }
 
 .card-title {
-  text-align: center;
-  color: orange;
+    text-align: center;
+    color: orange;
 }
-
 
 //BEGIN footer styles >>>>>>>>>>
 .footer-basic {
-  height:122px;
-  height:88px;
-  margin-top:16px;
+    height: 122px;
+    height: 88px;
+    margin-top: 16px;
+    background-color: rgba(0, 48, 73, 1)
 }
 
 .footer_links {
-  color:#f77f00;
+    color: #f77f00;
 }
+
 #footer-copyright {
-  margin:auto;
-  text-align:center;
+    margin: auto;
+    text-align: center;
 }
 
 .footer {
-  margin-top:16px;
+    margin-top: 16px;
 }
 
 .footer_links {
-  padding:10px;
-  margin:auto;
-  text-align:center;
-  color:white;
-  /*margin-top:15px;*/
+    padding: 10px;
+    margin: auto;
+    text-align: center;
+    color: white;
+    /*margin-top:15px;*/
 }
 
+.list-inline-item>a {
+    color: rgba(247, 127, 0, 1);
+    text-decoration: none;
+}
+
+.list-inline {
+    margin-top: 15px;
+}
 
 // >>>>>>>>>> END footer styles
+#brand-logo-group {
+    margin: 100px;
+    display: flex;
+    align-items: start;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-content: space-between;
+    height: 400px;
+}
+
+.brand-logos {
+    margin: 100px;
+    margin-left: 95px;
+    width: 300px;
+    height: auto;
+}
+
+// .brand-logos {
+//     // Logos that display at the bottom of the landing page
+//     margin: auto;
+//     max-height: 150px;
+// }
+#landing-parts-header {
+    color: #F77F00;
+    margin-top: 150px;
+    font-size: 52px;
+}
+
+#admin-login {
+    color: #f77f00;
+    text-decoration: none;
+    margin-left: 250px;
+}
+
+#product-output {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    padding: 25px;
+}

@@ -84,11 +84,9 @@ var adminSearchArray = [];
 
 
 $("#suspension-button, #brake-button, #drivetrain-button").click(function(event) {
-  event.preventDefault();
- let val = event.currentTarget.value;
-//consider putting the DOM removal {}here
-
-  grab_data(val);
+    event.preventDefault();
+    let val = event.currentTarget.value;
+    grab_data(val);
 });
 
 /** 
@@ -98,33 +96,38 @@ $("#suspension-button, #brake-button, #drivetrain-button").click(function(event)
  */
 
 function partNumberFilter(productData, val) {
-
+    console.log("whats productData in pn filter", productData);
+    console.log("aaaannd val?", val);
     $.each(productData, function(index, item) {
-        
+
         let partNumber = this.part_num;
         let targetPartNum = val;
         let parsePN = partNumber.substring(0, 4);
 
         if (parsePN === targetPartNum) {
-          partnumArray.push(item);  
-         
-          $.each(partnumArray, function(index, item) {
-           
-            let productDomString = 
-            `<div class="product-card">
+            partnumArray.push(item);
+
+            $.each(partnumArray, function(index, item) {
+
+                let productDomString =
+                    `<div class="product-card">
                 <h4 class="card-title">${item.part_num}</h4>
+                <div class="img-container">
+                  <img src="../img/nopic.jpg" class="card-pic">
+                </div>
+                
                   <p class="card-text">
-                    ${item.item_description} <br>
+                    <strong>Part Description: </strong>${item.item_description} <br>
                   </p> 
                   <p class="card-price"> 
-                    Price: ${item.price}
+                    <strong>Price:</strong> ${item.price}
                   </p>
               </div> `;
 
 
-            $("#card-group").append(productDomString);
+                $("#product-output").append(productDomString);
 
-          });
+            });
 
         }
 
@@ -136,29 +139,29 @@ function partNumberFilter(productData, val) {
 
 
 
-function printSearchResults (data) {
- 
-let partsSearchQuery = $("#admin-search-btn").attr('value');
+function printSearchResults(data) {
 
-$.each(data, function(item, val) {
+    let partsSearchQuery = $("#admin-search-btn").attr('value');
+
+    $.each(data, function(item, val) {
 
         var partKey = this.part_num,
-            itemId = this.id, 
+            itemId = this.id,
             searchTarget = partsSearchQuery,
 
             fullNum = partKey.substring(0, 8),
             firstThree = partKey.substring(0, 4);
 
-        if (fullNum == searchTarget  || firstThree == searchTarget) {
+        if (fullNum == searchTarget || firstThree == searchTarget) {
             adminSearchArray.push(data);
-          
-            for(let i = 0; i < adminSearchArray.length; i++){
+
+            for (let i = 0; i < adminSearchArray.length; i++) {
 
                 var adminDOMCards = `
                     <div class="product-card">
-                        <h4 class="card-title">${this.part_num}</h4>
-                        <p class="card-text">Description: ${this.item_description}</p>
-                        <p>Price: ${this.price}</p>
+                        <h4 class="card-title"><strong>P/N:</strong>${this.part_num}</h4>
+                        <p class="card-text"><strong>Description:</strong>${this.item_description}</p>
+                        <p class="card-price"><strong>Price:</strong>${this.price}</p>
                         <button class="edit-btn" value="${this.id}">Edit</button>
                         <button class="delete-btn" value="${this.id}">Delete</button>
                     </div>`;
@@ -166,7 +169,7 @@ $.each(data, function(item, val) {
                 $("#admin-output-container").append(adminDOMCards);
 
             }
-        }//If closing bracket...
+        } //If closing bracket...
     }); //first each brackets....
 }
 
@@ -174,36 +177,36 @@ $.each(data, function(item, val) {
 
 function searchLogic() {
 
-  return $.ajax({
-          url: `https://dp-racing.firebaseio.com/products.json`,
-          type: 'GET',
-          dataType: 'JSON',
-  }).done( (data) => {
-    
-    console.log("Successful XHR Call");
+    return $.ajax({
+        url: `https://dp-racing.firebaseio.com/products.json`,
+        type: 'GET',
+        dataType: 'JSON',
+    }).done((data) => {
 
-    let keys = Object.keys(data);
-    
-    for (var item in data) {
-        var currentProductID = item;
-        data[item].id = currentProductID;
-    }      
-    printSearchResults(data);
-});
+        console.log("Successful XHR Call");
+
+        let keys = Object.keys(data);
+
+        for (var item in data) {
+            var currentProductID = item;
+            data[item].id = currentProductID;
+        }
+        printSearchResults(data);
+    });
 }
 
 
 
-function getProductById (fb_id) {
+function getProductById(fb_id) {
 
-  return $.ajax({
-         url: `${firebase.getFBsettings().databaseURL}/products/${fb_id}.json`
-}).done((productData) =>{
-    // console.log("what is productData", productData);
-    return productData;
-}).fail((error) =>{
-    return error;
-});
+    return $.ajax({
+        url: `${firebase.getFBsettings().databaseURL}/products/${fb_id}.json`
+    }).done((productData) => {
+        // console.log("what is productData", productData);
+        return productData;
+    }).fail((error) => {
+        return error;
+    });
 }
 
 
@@ -222,7 +225,7 @@ function grab_data(val) {
             console.log("success");
 
             // partNumberFilter(productData, val);
-            partNumberFilter(productData);
+            partNumberFilter(productData, val);
             return productData;
         });
 }
@@ -231,7 +234,11 @@ function grab_data(val) {
 
 
 module.exports = {
-  grab_data, partNumberFilter, productData, searchLogic, getProductById
+    grab_data,
+    partNumberFilter,
+    productData,
+    searchLogic,
+    getProductById
 };
 },{"./fb-config":3}],3:[function(require,module,exports){
 "use strict";

@@ -1,86 +1,58 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Admin Console</title>
-  <link rel="stylesheet" href="../css/console.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Admin Console</title>
+
+    <link rel="stylesheet" href="../css/console.css">
 </head>
+
 <body>
-  
-  <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
 
-        <div class="container">
+    <nav id="admin-nav">
 
-            <a class="navbar-brand" href="../index.html">DP Racing</a>
+        <a id="home-link" href="../index.html">To Homepage</a>
 
-            <div class="collapse navbar-collapse" id="navcol-1">
 
-                <ul class="nav navbar-nav">
-
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="products.html" id="nav-products">Products</a>
-                    </li>
-
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="news.html">News</a>
-                    </li>
-
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="gallery.html">Gallery</a>
-                    </li>
-
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="technical.html">Technical Manuals</a>
-                    </li>
-
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="contact.html" id="nav-contact-link">Contact</a>
-                    </li>
-                </ul>
-
-                
-                    <a href="html/console.html" id="admin-login">Admin Log In</a>
-                
-
-            </div>
-        </div>
     </nav>
 
-  <div id="dynamic-div">
-    
-    <input id="login-email" type="text" placeholder="e-mail">
-    <input id="login-pass" type="password" placeholder="password">
-    <legend>Login To The DP Racing Admin Console</legend>
+    <div id="dynamic-div">
 
-    <button id="admin-login-btn">Login</button>
- 
-  </div>
+        <legend>Login To The DP Racing Admin Console</legend>
+        <input id="login-email" type="text" placeholder="e-mail">
+        <input id="login-pass" type="password" placeholder="password">
 
-  <div class="admin-container">
-    <h4 class="admin-h4">Add A New Item To Inventory</h4>
-    <input id="admin-partnumber-input" class="admin-input-fields" type="text" value="" placeholder="part-number">
-    <input id="admin-description-input" class="admin-input-fields" type="text" value="" placeholder="Description">
-    <input id="admin-price-input" class="admin-input-fields" type="text" value="" placeholder="Price">
+        <button id="admin-login-btn">Login</button>
+        <button id="log-out-btn" type="button">Log Out</button>
 
-    <button id="admin-create-btn">Submit To Inventory</button>
-  </div>
+    </div>
 
-  <div class="admin-container">
-    <h4 class="admin-h4">Search For Item In Inventory</h4>
-    <input id="admin-search-field" class="admin-input-fields" type="text">
-    <button id="admin-search-btn" type="button">Search</button>
-  </div>
-  
-<div id="admin-output-container">
-  
-</div>
+    <div id="admin-container-flex">
+        <div class="admin-container">
+            <h4 class="admin-h4">Create Part</h4>
+            <input id="admin-partnumber-input" class="admin-input-fields" type="text" value="" placeholder="part-number">
+            <input id="admin-description-input" class="admin-input-fields" type="text" value="" placeholder="Description">
+            <input id="admin-price-input" class="admin-input-fields" type="text" value="" placeholder="Price">
+
+            <button id="admin-create-btn">Submit To Inventory</button>
+        </div>
+
+        <div class="admin-container">
+            <h4 class="admin-h4">Search For Part</h4>
+            <input id="admin-search-field" class="admin-input-fields" type="text">
+            <button id="admin-search-btn" type="button">Search</button>
+        </div>
+    </div>
+
+    <div id="admin-output-container">
+
+    </div>
 
 
-  <script
-    src="http://code.jquery.com/jquery-3.3.1.js"
-    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-    crossorigin="anonymous"></script>      
-  <script type="text/javascript" src="../dist/app.js"></script>
+    <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../dist/app.js"></script>
 </body>
+
 </html>
