@@ -2,7 +2,7 @@
 //install firebase into lib folder npm install firebase --save
 let firebase = require("./fb-config"),
   currentUser = null;
-
+console.log("user here");
 //listen for changed state
 firebase.auth().onAuthStateChanged((user) => {
   console.log("onAuthStateChanged", user);

@@ -400,8 +400,8 @@ function editFBitems (editTarget) {
         updatedCard = createInventoryItem();
 
         console.log("save me, itemToPushID?", itemToPushID);
-	updatedCard.part_num = editFieldTwoVal;
-	updatedCard.item_description = editFieldOneVal;
+	updatedCard.part_num = editFieldOneVal; 
+	updatedCard.item_description = editFieldTwoVal;
 	updatedCard.price = editFieldThrVal;
 
   console.log("OBJ?>>>>>>>>>>>>>>>>>>>>>>>", updatedCard);       
@@ -427,7 +427,7 @@ $(document).on("click", ".delete-btn", function(event) {
 //install firebase into lib folder npm install firebase --save
 let firebase = require("./fb-config"),
   currentUser = null;
-
+console.log("user here");
 //listen for changed state
 firebase.auth().onAuthStateChanged((user) => {
   console.log("onAuthStateChanged", user);
