@@ -110,8 +110,8 @@ function editFBitems (editTarget) {
         updatedCard = createInventoryItem();
 
         console.log("save me, itemToPushID?", itemToPushID);
-	updatedCard.part_num = editFieldTwoVal;
-	updatedCard.item_description = editFieldOneVal;
+	updatedCard.part_num = editFieldOneVal; 
+	updatedCard.item_description = editFieldTwoVal;
 	updatedCard.price = editFieldThrVal;
 
   console.log("OBJ?>>>>>>>>>>>>>>>>>>>>>>>", updatedCard);       
