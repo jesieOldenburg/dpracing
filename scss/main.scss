@@ -1,213 +1,360 @@
-
-
-//Landing Page Styling....
+@import "palette";
+@import "constants"; //Landing Page Styling....
 //Order of elements
 //  > NAV elements 
 //  > The "Billboard" / aka header & its associated elements
 //  > Page descriptions and arrow link sections
 //  > Products section & associated elements
-
 .btn:not(:disabled):not(.disabled) {
-  background-color:#D62828;
-  margin:auto;
+    background-color: #D62828;
+    margin: auto;
 }
 
 .navbar.navbar-dark.navbar-expand-md.navigation-clean-search {
-  background-color:#003049;
+    background-color: #003049;
 }
 
 #nav-contact-link {
-  margin-right:330px;
+    margin-right: 330px;
 }
 
-.navbar-dark .navbar-brand:focus, .navbar-dark .navbar-brand:hover {
-  color: #F77F00;
+.navbar-brand {
+    font-size: 26px;
+}
+
+.navbar-dark .navbar-brand:focus,
+.navbar-dark .navbar-brand:hover {
+    color: #F77F00;
 }
 
 #landing-h1 {
-  color:#000000;
-  background-color:rgba(255,255,255,0.76);
-  font-size:54px;
-  height:402px;
-  font-family:'Doppio One', sans-serif;
-  width:871px;
-  /*margin-right:-0px;*/
-  /*min-width:500px;*/
-  /*max-width:1000px;*/
-  padding:60px;
-  border-radius:10%;
-  margin:auto;
-  display:block;
-  text-align:center;
+    color: #000000;
+    background-color: rgba(255, 255, 255, 0.76);
+    font-size: 54px;
+    height: 402px;
+    font-family: 'Doppio One', sans-serif;
+    width: 871px;
+    /*margin-right:-0px;*/
+    /*min-width:500px;*/
+    /*max-width:1000px;*/
+    padding: 60px;
+    border-radius: 10%;
+    margin: auto;
+    display: block;
+    text-align: center;
 }
 
 #landing-header-billboard {
-  background-color:#003049;
-  margin:-35px;
-  background-size:cover;
-  background-repeat:no-repeat;
-  background-position:bottom;
-  height:597px;
+    background-color: #003049;
+    margin: -35px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    height: 597px;
 }
 
 .header-dark {
-  margin-top:35px;
-  margin-top:35px;
-  height:348px;
-  padding:40px;
+    margin-top: 35px;
+    margin-top: 35px;
+    height: 348px;
+    padding: 40px;
 }
+
 // 
 #landing-cta-button {
-  margin:auto;
+    margin: auto;
 }
 
 #landing-cta-btn {
-  margin-top:35px;
-  background-color:#fcbf49;
-  width:234px;
-  height:60px;
-  font-size:31px;
-  font-family:'Hammersmith One', sans-serif;
-  color:#003049;
-  padding-top:9px;
+    margin-top: 35px;
+    background-color: #fcbf49;
+    width: 234px;
+    height: 60px;
+    font-size: 31px;
+    font-family: 'Hammersmith One', sans-serif;
+    color: #003049;
+    padding-top: 9px;
 }
 
 #landing-main-p {
-  font-size:30px;
-  background-color:rgba(0,0,0,0);
+    font-size: 30px;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 #landing-parts-header {
-  color:#F77F00;
-  margin-top:150px;
-  font-size:60px;
+    color: #F77F00;
+    margin-top: 150px;
+    font-size: 60px;
 }
 
-.text-center { // Also a part of #landing-parts-header
-  padding:16px;
-  margin-top:30px;
+.text-center {
+    // Also a part of #landing-parts-header
+    padding: 16px;
+    margin-top: 30px;
 }
 
 // CHECK ^^^ 
-
 #brands-header {
-  border-bottom:1px solid black;
-  width:400px;
-  padding:20px;
+    border-bottom: 1px solid black;
+    width: 400px;
+    padding: 20px;
 }
 
 .landing_article_titles {
-  font-size:large;
-  border-bottom:2px solid black;
-  padding-bottom:15px;
-}
-
-.brand-logos {
-  width:100px;
-  height:20px;
+    font-size: large;
+    border-bottom: 2px solid black;
+    padding-bottom: 15px;
 }
 
 #brands-p {
-  margin:auto;
-  text-align:center;
-  width:773px;
+    margin: auto;
+    text-align: center;
+    width: 773px;
 }
 
 #products-page-h1 {
-  /*border-bottom:1px solid black;*/
-  margin:50px;
-  padding-bottom:20px;
-  padding:0px;
-  font-size:55px;
+    /*border-bottom:1px solid black;*/
+    margin: 50px;
+    padding-bottom: 20px;
+    padding: 0px;
+    font-size: 55px;
 }
 
-
-
 .card-group {
-  padding-bottom:50px;
+    padding-bottom: 50px;
 }
 
 @media (max-width:767px) {
-  .article-list h2 {
-    margin-bottom:25px;
-    padding-top:25px;
-    font-size:24px;
-  }
+    .article-list h2 {
+        margin-bottom: 25px;
+        padding-top: 25px;
+        font-size: 24px;
+    }
 }
 
 .article-list {
-  margin-top:-85px;
+    margin-top: -85px;
 }
 
-
 #landing-article-row {
-  margin-top:45px;
+    margin-top: 45px;
 }
 
 #landing-brands-header {
-  font-size:68px;
-  margin-top:130px;
-  color:#d62828;
+    font-size: 68px;
+    margin-top: 130px;
+    color: #d62828;
 }
-
 
 // BEGIN BRAND LOGO SYLES >>>>>>>>>>
-
 #brand-logo-group {
-  display:flex;
-  align-items:start;
-  flex-flow:row wrap;
-  justify-content:space-evenly;
-  align-content:space-between;
+    margin: 100px;
+    display: flex;
+    align-items: start;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-content: space-between;
+    height: 400px;
 }
 
+// .brand-logos {
+//     margin: 35px;
+//     margin-left: 95px;
+//     width: 100px;
+//     height: 20px;
+// }
 .brand-logos {
-  margin:35px;
-  margin-left:95px;
+    // Logos that display at the bottom of the landing page
+    margin: auto;
+    max-height: 350px;
 }
 
-.brand-logos { // Logos that display at the bottom of the landing page
-  margin:auto;
-  max-height:150px;
-}
 // >>>>>>>>>> END BRAND LOGO SYLES
-
 #news-articles-section {
-  margin-top:-70px;
-  margin-bottom:90px;
+    margin-top: -70px;
+    margin-bottom: 90px;
 }
 
 #product-arrow {
-  color:#f77f00;
+    color: #f77f00;
 }
 
 #gallery-arrow {
-  color:#d62828;
+    color: #d62828;
 }
 
 #tech-arrow {
-  color:#fcbf49;
+    color: #fcbf49;
 }
 
 #product-header {
-  margin:24px;
-  padding:25px;
-  background-image:url("../../assets/img/parts_header.jpg");
-  width:1137px;
+    margin: 24px;
+    padding: 25px;
+    background-image: url("../../assets/img/parts_header.jpg");
+    width: 1137px;
 }
 
 #product-details-cards {
-  width:800px;
-  margin:auto;
-  padding:25px;
-  background-color:#f77f00;
+    width: 800px;
+    margin: auto;
+    padding: 25px;
+    background-color: #f77f00;
 }
 
 #product-details-heading {
-  margin:auto;
+    margin: auto;
 }
 
 #product-header {
-  margin:auto;
-  margin-top:50px;
+    margin: auto;
+    margin-top: 50px;
 }
+
+.img-container {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+}
+
+.img-container img {
+    width: 200px;
+    height: auto;
+}
+
+#card-group {
+    display: flex;
+    flex-direction: row wrap;
+    margin-bottom: 100px;
+    margin-top: 100px;
+}
+
+#products-page-h1 {
+    text-align: center;
+    margin-top: 100px;
+    font-size: 52px;
+}
+
+.footer-basic {
+    height: 122px;
+    height: 88px;
+    margin-top: 16px;
+    background-color: rgba(0, 48, 73, 1)
+}
+
+.footer_links {
+    color: #f77f00;
+}
+
+#footer-copyright {
+    margin: auto;
+    text-align: center;
+}
+
+#landing-parts-header {
+    color: #F77F00;
+    margin-top: 150px;
+    font-size: 52px;
+}
+
+#product-output {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    padding: 25px;
+}
+
+.img-container {
+    display: flex;
+    justify-content: space-evenly;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    margin: auto;
+}
+
+.card-pic {
+    display: block;
+    width: 200px;
+    height: auto;
+    // align-self: center;
+    margin: auto;
+}
+
+.gallery-img-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    margin: auto;
+}
+
+.gallery-pic {
+    width: 300px;
+    height: auto;
+    margin: 25px;
+}
+
+#photo-bucket {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    width: 75%;
+    margin: auto;
+}
+
+#gallery-h1 {
+    margin: auto;
+    text-align: center;
+    padding: 25px;
+    font-size: 52px;
+    color: #f77f00;
+}
+
+#gallery-description {
+    margin: auto;
+    text-align: center;
+    padding: 25px;
+}
+
+.contact-clean {
+    background-color: #003049;
+    width: 60%;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 25px;
+    border-radius: 5%;
+    border: 5px solid #f77f00;
+}
+
+#contact-header {
+    font-size: 70px;
+    color: antiquewhite;
+}
+
+#contact-blurb {
+    color: antiquewhite;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 25px;
+    padding: 15px;
+    font-size: 26px;
+    width: 600px;
+}
+
+#contact-btn {
+    display: block;
+    position: relative;
+    margin: auto;
+    width: 100px;
+}
+
+.form-control {
+    width: 300px;
+    margin: auto;
+}
+
+// .contact-name {}
+// .contact-email

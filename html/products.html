@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
     <link rel="stylesheet" href="../css/products.css">
+    <link rel="stylesheet" href="../css/console.css">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 
 <body>
@@ -16,24 +18,22 @@
     <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
 
         <div class="container">
-          <a class="navbar-brand" href="#">DP Racing</a>
+            <a class="navbar-brand" href="../index.html">DP Racing</a>
 
-          <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav">
 
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" href="products.html" id="nav-products">Products</a></li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" href="news.html">News</a></li>
+                    <a class="nav-link" href="products.html" id="nav-products">Products</a></li>
+
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" href="gallery.html">Gallery</a></li>
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link" href="technical.html">Technical Manuals</a></li>
+
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" href="contact.html" id="nav-contact-link">Contact</a></li>
 
             </ul>
 
-            <span class="navbar-text"><a href="" class="login">Log In</a></span>
+
 
         </div>
 
@@ -45,13 +45,14 @@
     </header>
 
     <div id="card-group">
-       
+
         <div id="brakes-card" class="card">
 
             <div class="card-body">
-
                 <h4 class="card-title">Brakes</h4>
-
+                <div class="img-container">
+                    <img src="../img/brakes.jpg" alt="">
+                </div>
                 <p class="card-text">
                     Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.
                 </p>
@@ -62,44 +63,53 @@
         </div>
 
         <div class="card"><img class="card-img-top w-100 d-block">
-          <div class="card-body">
-            <h4 class="card-title">Drivetrain</h4>
-            <p class="card-text">
-              Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.
-            </p>
-            <button id="drivetrain-button" value="201-" class="btn btn-primary" type="button">View</button>
-          </div>
+            <div class="card-body">
+                <h4 class="card-title">Drivetrain</h4>
+                <div class="img-container">
+                    <img src="../img/drivetrain.jpg" alt="">
+                </div>
+                <p class="card-text">
+                    Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.
+                </p>
+                <button id="drivetrain-button" value="201-" class="btn btn-primary" type="button">View</button>
+            </div>
         </div>
 
         <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">Suspension</h4>
-            <p class="card-text">
-              Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.
-            </p>
-            <button id="suspension-button" value="299-" class="btn btn-primary" type="button">View</button>
+            <div class="card-body">
+                <h4 class="card-title">Suspension</h4>
+                <div class="img-container">
+                    <img src="../img/suspension.jpg">
+                </div>
+                <p class="card-text">
+                    Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.
+                </p>
+                <button id="suspension-button" value="299-" class="btn btn-primary" type="button">View</button>
 
             </div>
         </div>
 
-      </div>
-
-    
-    <div class="footer-basic">
-      <footer>
-        <ul class="list-inline">
-          <li class="list-inline-item"><a href="../index.html" id="footer-home-link">Home</a></li>
-          <li class="list-inline-item"><a href="#">How To Buy</a></li>
-          <li class="list-inline-item"><a href="#">Location</a></li>
-          <li class="list-inline-item"><a href="#">Technical</a></li>
-          <li class="list-inline-item list-inline-item">Price List</li>
-          <li class="list-inline-item"></li>
-        </ul>
-        <p class="copyright">DP Racing © 2017</p>
-      </footer>
     </div>
 
-    
+    <div id="product-output">
+
+    </div>
+
+    <div class="footer-basic">
+        <footer>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="../index.html" id="footer-home-link">Home</a></li>
+                <li class="list-inline-item"><a href="#">How To Buy</a></li>
+                <li class="list-inline-item"><a href="#">Location</a></li>
+                <li class="list-inline-item"><a href="#">Technical</a></li>
+                <li class="list-inline-item list-inline-item">Price List</li>
+                <li class="list-inline-item"></li>
+            </ul>
+            <p class="copyright">DP Racing © 2017</p>
+        </footer>
+    </div>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
     <script src="../dist/app.js"></script>

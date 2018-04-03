@@ -9,47 +9,53 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="../css/products.css">
+    <link rel="stylesheet" href="../css/console.css">
 </head>
 
 <body>
     <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
-        <div class="container"><a class="navbar-brand" href="#">DP Racing</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container"><a class="navbar-brand" href="../index.html">DP Racing</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav">
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" href="products.html" id="nav-products">Products</a>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="news.html">News</a>
-                    </li>
+
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" href="gallery.html">Gallery</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="technical.html">Technical Manuals</a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" href="contact.html" id="nav-contact-link">Contact</a>
                     </li>
                 </ul>
 
-                <span class="navbar-text">
-                    <a href="#" class="login">Log In</a>
-                </span>
+
 
             </div>
         </div>
     </nav>
+
     <div class="contact-clean">
         <form method="post">
-            <h2 class="text-center">Contact us</h2>
-            <p style="width:432px;">Have questions or feedback? Great! Get in touch below&nbsp;</p>
-            <div class="form-group"><input class="form-control" type="text" name="name" placeholder="Name"></div>
-            <div class="form-group"><input class="form-control is-invalid" type="email" name="email" placeholder="Email"><small class="form-text text-danger">Please enter a correct email address.</small></div>
-            <div class="form-group"><textarea class="form-control" rows="14" name="message" placeholder="Message"></textarea></div>
-            <div class="form-group"><button class="btn btn-primary" type="submit">send </button></div>
+            <h2 id="contact-header" class="text-center">Contact DP Racing</h2>
+            <p id="contact-blurb" style="width:432px;">Have questions or feedback? We love to hear from our customers! Get in touch below!</p>
+            <div class="form-group">
+                <input id="contact-name" class="form-control" type="text" name="name" placeholder="Name">
+            </div>
+            <div class="form-group">
+                <input id="contact-email" class="form-control is-invalid" type="email" name="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" rows="5" name="message" placeholder="Message"></textarea>
+            </div>
+
+            <button id="contact-btn" class="btn btn-primary" type="submit">Send </button>
+
         </form>
     </div>
+
+
     <div class="footer-basic" style="background-color:#003049;color:rgb(255,255,255);">
         <footer>
             <div class="social"></div>

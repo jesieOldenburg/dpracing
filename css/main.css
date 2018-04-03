@@ -1,3 +1,77 @@
+/* Coolors Exported Palette - coolors.co/003049-d62828-f77f00-fcbf49-eae2b7 */
+/* HSL */
+/* RGB */
+.product-card {
+  width: 400px;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: space-between; }
+
+.card-title {
+  text-align: center;
+  color: orange; }
+
+.footer-basic {
+  height: 122px;
+  height: 88px;
+  margin-top: 16px;
+  background-color: #003049; }
+
+.footer_links {
+  color: #f77f00; }
+
+#footer-copyright {
+  margin: auto;
+  text-align: center; }
+
+.footer {
+  margin-top: 16px; }
+
+.footer_links {
+  padding: 10px;
+  margin: auto;
+  text-align: center;
+  color: white;
+  /*margin-top:15px;*/ }
+
+.list-inline-item > a {
+  color: #f77f00;
+  text-decoration: none; }
+
+.list-inline {
+  margin-top: 15px; }
+
+#brand-logo-group {
+  margin: 100px;
+  display: flex;
+  align-items: start;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-content: space-between;
+  height: 400px; }
+
+.brand-logos {
+  margin: 100px;
+  margin-left: 95px;
+  width: 300px;
+  height: auto; }
+
+#landing-parts-header {
+  color: #F77F00;
+  margin-top: 150px;
+  font-size: 52px; }
+
+#admin-login {
+  color: #f77f00;
+  text-decoration: none;
+  margin-left: 250px; }
+
+#product-output {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  padding: 25px; }
+
 .btn:not(:disabled):not(.disabled) {
   background-color: #D62828;
   margin: auto; }
@@ -8,7 +82,11 @@
 #nav-contact-link {
   margin-right: 330px; }
 
-.navbar-dark .navbar-brand:focus, .navbar-dark .navbar-brand:hover {
+.navbar-brand {
+  font-size: 26px; }
+
+.navbar-dark .navbar-brand:focus,
+.navbar-dark .navbar-brand:hover {
   color: #F77F00; }
 
 #landing-h1 {
@@ -77,10 +155,6 @@
   border-bottom: 2px solid black;
   padding-bottom: 15px; }
 
-.brand-logos {
-  width: 100px;
-  height: 20px; }
-
 #brands-p {
   margin: auto;
   text-align: center;
@@ -113,19 +187,17 @@
   color: #d62828; }
 
 #brand-logo-group {
+  margin: 100px;
   display: flex;
   align-items: start;
   flex-flow: row wrap;
   justify-content: space-evenly;
-  align-content: space-between; }
-
-.brand-logos {
-  margin: 35px;
-  margin-left: 95px; }
+  align-content: space-between;
+  height: 400px; }
 
 .brand-logos {
   margin: auto;
-  max-height: 150px; }
+  max-height: 350px; }
 
 #news-articles-section {
   margin-top: -70px;
@@ -158,5 +230,129 @@
 #product-header {
   margin: auto;
   margin-top: 50px; }
+
+.img-container {
+  width: 200px;
+  height: 200px;
+  overflow: hidden; }
+
+.img-container img {
+  width: 200px;
+  height: auto; }
+
+#card-group {
+  display: flex;
+  flex-direction: row wrap;
+  margin-bottom: 100px;
+  margin-top: 100px; }
+
+#products-page-h1 {
+  text-align: center;
+  margin-top: 100px;
+  font-size: 52px; }
+
+.footer-basic {
+  height: 122px;
+  height: 88px;
+  margin-top: 16px;
+  background-color: #003049; }
+
+.footer_links {
+  color: #f77f00; }
+
+#footer-copyright {
+  margin: auto;
+  text-align: center; }
+
+#landing-parts-header {
+  color: #F77F00;
+  margin-top: 150px;
+  font-size: 52px; }
+
+#product-output {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  padding: 25px; }
+
+.img-container {
+  display: flex;
+  justify-content: space-evenly;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  margin: auto; }
+
+.card-pic {
+  display: block;
+  width: 200px;
+  height: auto;
+  margin: auto; }
+
+.gallery-img-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+  margin: auto; }
+
+.gallery-pic {
+  width: 300px;
+  height: auto;
+  margin: 25px; }
+
+#photo-bucket {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  width: 75%;
+  margin: auto; }
+
+#gallery-h1 {
+  margin: auto;
+  text-align: center;
+  padding: 25px;
+  font-size: 52px;
+  color: #f77f00; }
+
+#gallery-description {
+  margin: auto;
+  text-align: center;
+  padding: 25px; }
+
+.contact-clean {
+  background-color: #003049;
+  width: 60%;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding: 25px;
+  border-radius: 5%;
+  border: 5px solid #f77f00; }
+
+#contact-header {
+  font-size: 70px;
+  color: antiquewhite; }
+
+#contact-blurb {
+  color: antiquewhite;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 25px;
+  padding: 15px;
+  font-size: 26px;
+  width: 600px; }
+
+#contact-btn {
+  display: block;
+  position: relative;
+  margin: auto;
+  width: 100px; }
+
+.form-control {
+  width: 300px;
+  margin: auto; }
 
 /*# sourceMappingURL=main.css.map */
