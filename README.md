@@ -3,13 +3,15 @@
 Welcome to the DP Racing repo! This site is built as a capstone project at Nashville Software School.
 
 ## Setup 
-Setup is simple! Create a local repo on your machine, named `dpracing`
-In your repository, create a new file and name it README.md.
-Create your own edits in your README.md
-Update the text as needed for your project
+Setup is simple!
+1. From the command line, navigate to any directory and run`mkdir dp-racing && cd &_`.
+2. Clone this repo into your newly created directory.
+3. Run `npm install` to install the project dependencies.
+4. Once npm is finished installing dependencies run `cd lib ; grunt` to start the taskrunner.
+5. Once grunt is running in the background without errors, navigate back to the root folder and run your local server to open the page in your browser.
 
 ### Dependencies
-Ensure the following dependencies are installed in your node_modules directory, within the lib <dir></dir>
+Ensure the following dependencies are installed in your node_modules directory, within the `lib` directory.
 
 - Grunt
 - Bootstrap
@@ -17,8 +19,7 @@ Ensure the following dependencies are installed in your node_modules directory, 
 
 ### Getting started
 
-*What does your user need to know to get everything ready after installation?*
-*Think about databases, config files, and settings.*
+
 
 ## Created By
 
@@ -37,6 +38,4 @@ Your patches are welcome. Here's our suggested workflow:
  
 * Fork the project.
 * Make your feature addition or bug fix.
-* Send us a pull request with a description of your work. Bonus points for topic branches!
-
-
+* Submit a pull request with a description of the patch or feature.
